@@ -6,18 +6,12 @@ require_once __DIR__ . '/AppointmentValidator.php';
 
 /**
  * Branded appointment notification emails for Eco Wealth Wellnessolution.
+ * HTML layout: api/templates/appointment-email.html
  */
 final class AppointmentEmailTemplate
 {
-    private const GREEN = '#1a7a4a';
-    private const GREEN_DARK = '#145f3a';
     private const BLUE = '#0d5c8c';
-    private const FOOTER_BG = '#0c3d52';
-    private const TEXT = '#1a2e28';
     private const TEXT_MUTED = '#4a5f57';
-    private const BG_MUTED = '#f7f9f8';
-    private const CARD_BG = '#eef4f1';
-    private const BORDER = '#d8e4df';
 
     public static function subject(string $clinicName, array $appointment): string
     {
@@ -59,11 +53,8 @@ final class AppointmentEmailTemplate
         }
 
         $parsed = DateTimeImmutable::createFromFormat('Y-m-d', $date);
-        if ($parsed === false) {
-            return $date;
-        }
 
-        return $parsed->format('l, F j, Y');
+        return $parsed === false ? $date : $parsed->format('l, F j, Y');
     }
 
     private static function formatPreferredTime(string $time): string
@@ -73,11 +64,8 @@ final class AppointmentEmailTemplate
         }
 
         $parsed = DateTimeImmutable::createFromFormat('H:i', $time);
-        if ($parsed === false) {
-            return $time;
-        }
 
-        return $parsed->format('g:i A');
+        return $parsed === false ? $time : $parsed->format('g:i A');
     }
 
     private static function e(string $value): string
@@ -85,7 +73,6 @@ final class AppointmentEmailTemplate
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 
-    /** Keeps words like "Eco Wealth" from collapsing in email clients. */
     private static function eNbsp(string $value): string
     {
         return str_replace(' ', '&nbsp;', self::e($value));
@@ -106,13 +93,68 @@ final class AppointmentEmailTemplate
         ];
     }
 
-    private static function detailRow(string $label, string $valueHtml): string
+    private static function infoCell(string $label, string $valueHtml): string
     {
-        return '<tr>'
-            . '<td style="padding:10px 0 4px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:'
-            . self::TEXT_MUTED . ';">' . self::e($label) . '</td></tr>'
-            . '<tr><td style="padding:0 0 14px;font-size:16px;color:' . self::TEXT . ';border-bottom:1px solid '
-            . self::BORDER . ';">' . $valueHtml . '</td></tr>';
+        return '<td width="50%" valign="top" style="padding:8px 6px;">'
+            . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #d8e4df;border-radius:10px;">'
+            . '<tr><td style="padding:14px 16px;">'
+            . '<p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:'
+            . self::TEXT_MUTED . ';">' . self::e($label) . '</p>'
+            . '<div style="font-size:15px;line-height:1.45;color:#1a2e28;font-weight:600;">' . $valueHtml . '</div>'
+            . '</td></tr></table></td>';
+    }
+
+    private static function buildContactGrid(array $appointment): string
+    {
+        $phoneDigits = preg_replace('/\D+/', '', $appointment['phone']) ?? '';
+        $phone = self::e($appointment['phone']);
+        $email = self::e($appointment['email']);
+
+        return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+            . self::infoCell('Full name', self::e($appointment['fullName']))
+            . self::infoCell(
+                'Phone',
+                '<a href="tel:' . self::e($phoneDigits) . '" style="color:' . self::BLUE . ';text-decoration:none;">' . $phone . '</a>',
+            )
+            . '</tr><tr><td colspan="2" style="padding:8px 6px;">'
+            . '<table role="presentation" width="100%" style="background:#ffffff;border:1px solid #d8e4df;border-radius:10px;">'
+            . '<tr><td style="padding:14px 16px;">'
+            . '<p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:'
+            . self::TEXT_MUTED . ';">Email</p>'
+            . '<div style="font-size:15px;font-weight:600;"><a href="mailto:' . $email
+            . '" style="color:' . self::BLUE . ';text-decoration:none;word-break:break-all;">' . $email . '</a></div>'
+            . '</td></tr></table></td></tr></table>';
+    }
+
+    private static function buildPhonesHtml(array $phones): string
+    {
+        $parts = [];
+        foreach ($phones as $p) {
+            $tel = preg_replace('/\D+/', '', (string) $p) ?? '';
+            $parts[] = '<a href="tel:' . self::e($tel) . '" style="color:#b8e6cf;text-decoration:none;font-weight:600;">'
+                . self::e((string) $p) . '</a>';
+        }
+
+        return implode(' &nbsp;|&nbsp; ', $parts);
+    }
+
+    private static function loadHtmlTemplate(): string
+    {
+        $path = dirname(__DIR__) . '/templates/appointment-email.html';
+        if (!is_readable($path)) {
+            throw new RuntimeException('Email template not found: ' . $path);
+        }
+
+        return (string) file_get_contents($path);
+    }
+
+    private static function applyPlaceholders(string $html, array $vars): string
+    {
+        foreach ($vars as $key => $value) {
+            $html = str_replace('{{' . $key . '}}', $value, $html);
+        }
+
+        return $html;
     }
 
     private static function buildPlain(
@@ -155,134 +197,30 @@ final class AppointmentEmailTemplate
         array $config,
     ): string {
         $brand = self::branding($config);
-        $name = self::e($appointment['fullName']);
         $phoneDigits = preg_replace('/\D+/', '', $appointment['phone']) ?? '';
-        $phone = self::e($appointment['phone']);
-        $email = self::e($appointment['email']);
-        $service = self::e($serviceLabel);
-        $prefDate = self::e(self::formatPreferredDate($appointment['preferredDate']));
-        $prefTime = self::e(self::formatPreferredTime($appointment['preferredTime']));
         $notesRaw = $appointment['notes'] !== '' ? $appointment['notes'] : 'No additional notes provided.';
         $notes = nl2br(self::e($notesRaw), false);
-        $tagline = self::e($brand['tagline']);
-        $practitioner = self::e($brand['practitioner']);
-        $practitionerTitle = self::e($brand['practitioner_title']);
-        $hours = self::e($brand['hours']);
-        $location = self::e($brand['location']);
-        $clinic = self::eNbsp($clinicName);
-        $submitted = self::e($submittedAt);
-        $replyMailto = 'mailto:' . rawurlencode($appointment['email'])
-            . '?subject=' . rawurlencode('Re: Your Eco Wealth appointment request');
 
-        $phonesHtml = '';
-        foreach ($brand['phones'] as $p) {
-            $tel = preg_replace('/\D+/', '', (string) $p) ?? '';
-            $phonesHtml .= '<a href="tel:' . self::e($tel) . '" style="color:#b8e6cf;text-decoration:none;">'
-                . self::e((string) $p) . '</a><br>';
-        }
+        $vars = [
+            'CLINIC_NAME' => self::eNbsp($clinicName),
+            'TAGLINE' => self::e($brand['tagline']),
+            'PATIENT_NAME' => self::e($appointment['fullName']),
+            'SERVICE' => self::e($serviceLabel),
+            'PREFERRED_DATE' => self::e(self::formatPreferredDate($appointment['preferredDate'])),
+            'PREFERRED_TIME' => self::e(self::formatPreferredTime($appointment['preferredTime'])),
+            'CONTACT_GRID' => self::buildContactGrid($appointment),
+            'NOTES' => $notes,
+            'REPLY_URL' => 'mailto:' . rawurlencode($appointment['email'])
+                . '?subject=' . rawurlencode('Re: Your Eco Wealth appointment request'),
+            'TEL_URL' => 'tel:' . self::e($phoneDigits),
+            'SUBMITTED_AT' => self::e($submittedAt),
+            'PRACTITIONER' => self::e($brand['practitioner']),
+            'PRACTITIONER_TITLE' => self::e($brand['practitioner_title']),
+            'LOCATION' => self::e($brand['location']),
+            'HOURS' => self::e($brand['hours']),
+            'PHONES_HTML' => self::buildPhonesHtml($brand['phones']),
+        ];
 
-        $patientRows = self::detailRow('Full name', $name)
-            . self::detailRow('Phone', '<a href="tel:' . self::e($phoneDigits) . '" style="color:' . self::BLUE . ';text-decoration:none;font-weight:600;">' . $phone . '</a>')
-            . self::detailRow('Email', '<a href="mailto:' . $email . '" style="color:' . self::BLUE . ';text-decoration:none;font-weight:600;">' . $email . '</a>');
-
-        $visitRows = self::detailRow('Service', '<span style="color:' . self::GREEN . ';font-weight:600;">' . $service . '</span>')
-            . self::detailRow('Preferred date', $prefDate)
-            . self::detailRow('Preferred time', $prefTime);
-
-        $configBg = self::BG_MUTED;
-        $g1 = self::GREEN;
-        $g2 = self::GREEN_DARK;
-        $blue = self::BLUE;
-        $textColor = self::TEXT;
-        $textMuted = self::TEXT_MUTED;
-        $cardBg = self::CARD_BG;
-        $borderColor = self::BORDER;
-        $footerBg = self::FOOTER_BG;
-
-        return <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>New appointment — {$clinic}</title>
-</head>
-<body style="margin:0;padding:0;background-color:{$configBg};font-family:'Segoe UI',system-ui,-apple-system,sans-serif;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:{$configBg};padding:32px 16px;">
-<tr><td align="center">
-<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(26,46,40,0.08);">
-
-<tr>
-<td style="background:linear-gradient(135deg, {$g1} 0%, {$g2} 55%, {$blue} 100%);padding:28px 32px 24px;">
-<p style="margin:0 0 6px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);">Eco&nbsp;Wealth · Website booking</p>
-<h1 style="margin:0 0 8px;font-size:24px;font-weight:700;line-height:1.25;color:#ffffff;font-family:Georgia,'Times New Roman',serif;">{$clinic}</h1>
-<p style="margin:0;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.92);">{$tagline}</p>
-</td>
-</tr>
-
-<tr>
-<td style="padding:28px 32px 8px;">
-<p style="margin:0 0 6px;font-size:13px;font-weight:600;color:{$g1};">New appointment request</p>
-<h2 style="margin:0 0 8px;font-size:20px;font-weight:600;color:{$textColor};">A patient would like to visit the clinic</h2>
-<p style="margin:0;font-size:15px;line-height:1.6;color:{$textMuted};">Review the details below and reply to confirm their preferred schedule.</p>
-</td>
-</tr>
-
-<tr>
-<td style="padding:8px 32px 24px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{$cardBg};border-radius:12px;border:1px solid {$borderColor};">
-<tr><td style="padding:20px 24px;">
-<p style="margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:{$textMuted};">Patient</p>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-{$patientRows}
-</table>
-</td></tr>
-</table>
-</td>
-</tr>
-
-<tr>
-<td style="padding:0 32px 24px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;border:1px solid {$borderColor};">
-<tr><td style="padding:20px 24px;">
-<p style="margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:{$textMuted};">Requested visit</p>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-{$visitRows}
-</table>
-</td></tr>
-</table>
-</td>
-</tr>
-
-<tr>
-<td style="padding:0 32px 28px;">
-<p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:{$textMuted};">Notes from patient</p>
-<div style="margin:0;padding:0;font-size:15px;line-height:1.65;color:{$textColor};">{$notes}</div>
-</td>
-</tr>
-
-<tr>
-<td style="padding:0 32px 32px;" align="center">
-<a href="{$replyMailto}" style="display:inline-block;padding:14px 28px;background:{$g1};color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;border-radius:10px;">Reply to {$name}</a>
-<p style="margin:14px 0 0;font-size:13px;color:{$textMuted};">Submitted {$submitted}</p>
-</td>
-</tr>
-
-<tr>
-<td style="background:{$footerBg};padding:24px 32px;">
-<p style="margin:0 0 4px;font-size:15px;font-weight:600;color:#ffffff;">{$practitioner}</p>
-<p style="margin:0 0 12px;font-size:13px;color:rgba(255,255,255,0.8);">{$practitionerTitle} · {$clinic}</p>
-<p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:rgba(255,255,255,0.75);">{$location}</p>
-<p style="margin:0 0 8px;font-size:13px;color:rgba(255,255,255,0.75);">{$hours}</p>
-<p style="margin:0;font-size:14px;line-height:1.6;">{$phonesHtml}</p>
-</td>
-</tr>
-
-</table>
-</td></tr>
-</table>
-</body>
-</html>
-HTML;
+        return self::applyPlaceholders(self::loadHtmlTemplate(), $vars);
     }
 }

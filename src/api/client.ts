@@ -32,16 +32,17 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
   try {
     response = await fetch(path, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-EcoWealth-Booking': '1',
+      },
       body: JSON.stringify(body),
     })
-  } catch (cause) {
-    const isProd = import.meta.env.PROD
-    const hint = isProd
-      ? `Cannot reach ${path}. Open that URL in your browser. If it fails, redeploy after setting CLINIC_EMAIL and MAIL_SMTP_* on Vercel (do not set VITE_APPOINTMENT_API_URL to localhost).`
-      : 'Cannot reach the booking server. Start XAMPP Apache, then open http://localhost/ecowealth_v2/ (or set VITE_APPOINTMENT_API_URL in .env).'
-    console.error('Booking request failed:', cause)
-    throw new ApiError(hint, 0)
+  } catch {
+    throw new ApiError(
+      'Cannot reach the booking server. Start Apache (XAMPP) or run vercel dev, then try again.',
+      0,
+    )
   }
 
   const text = await response.text()
@@ -51,11 +52,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
     const message =
       data && typeof data === 'object' && 'message' in data && typeof data.message === 'string'
         ? data.message
-        : response.status === 404
-          ? import.meta.env.PROD
-            ? 'Booking API not found on this host. Redeploy with Vercel serverless appointments enabled.'
-            : 'Booking API not found. Use http://localhost/ecowealth_v2/ with XAMPP Apache running.'
-          : `Request failed (${response.status}).`
+        : `Request failed (${response.status}).`
     throw new ApiError(message, response.status, data ?? undefined)
   }
 

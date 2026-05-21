@@ -13,9 +13,6 @@ dist-ssr
 *.local
 .env
 
-# Appointment request logs (PHP API)
-api/storage/appointments/*.jsonl
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

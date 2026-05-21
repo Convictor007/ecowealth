@@ -19,6 +19,7 @@ export default function BookAppointmentButton({
       type="button"
       className={`btn btn--${variant} ${className}`.trim()}
       onClick={openAppointmentModal}
+      aria-haspopup="dialog"
     >
       {label}
     </button>

@@ -51,7 +51,6 @@ final class AppointmentServices
         return [
             'free-checkup' => 'Free check-up / consultation',
             'colon-hydrotherapy' => 'Colon hydrotherapy',
-            'wellness-massage' => 'Therapeutic massage & wellness',
             'iridology' => 'Iridology',
             'herbology' => 'Herbology',
             'herbal-coffee' => 'Herbal coffee',

@@ -1,48 +1,35 @@
 /**
- * Appointments API URL.
- * - Local Vite (5173) / XAMPP → PHP on Apache
- * - Vercel / production → same-origin /api/book-appointment (never localhost from env)
+ * Booking API URL — Vercel uses /api/appointments; XAMPP uses PHP when served under /ecowealth_v2
  */
 export function resolveAppointmentApiUrl(): string {
   const fromEnv = import.meta.env.VITE_APPOINTMENT_API_URL as string | undefined
-  const vercelApi = '/api/book-appointment'
-  const phpPath = '/ecowealth_v2/api/appointments/index.php'
+  if (fromEnv) return fromEnv
 
   if (typeof window !== 'undefined') {
-    const { protocol, hostname, port, pathname, origin } = window.location
-    const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1'
+    const { hostname, port, pathname, origin } = window.location
+    const phpPath = '/ecowealth_v2/api/appointments/index.php'
 
-    // Live site (Vercel or any public host): always same-origin — avoids CORS / wrong env
-    if (!isLocalHost) {
-      return `${origin}${vercelApi}`
+    if (hostname.includes('vercel.app')) {
+      return `${origin}/api/appointments`
     }
 
-    if (fromEnv) {
-      return fromEnv
-    }
-
+    // Vite dev → XAMPP PHP (email only; Apache must be running)
     if (port === '5173' || port === '4173') {
-      return `${protocol}//${hostname}${phpPath}`
+      return `http://${hostname}/ecowealth_v2/api/appointments/index.php`
     }
 
     if (pathname.includes('/ecowealth_v2')) {
       return `${origin}${phpPath}`
     }
-  }
 
-  if (fromEnv && import.meta.env.DEV) {
-    return fromEnv
+    return `${origin}/api/appointments`
   }
 
   return import.meta.env.DEV
     ? 'http://localhost/ecowealth_v2/api/appointments/index.php'
-    : vercelApi
+    : '/api/appointments'
 }
 
-/** @deprecated Use resolveAppointmentApiUrl() at request time */
-export const APPOINTMENT_API_URL = '/api/book-appointment'
-
-/** Fallback when appointment-services.json cannot be loaded */
 export const APPOINTMENT_SERVICES_FALLBACK = [
   { id: 'free-checkup', label: 'Free check-up / consultation' },
   { id: 'colon-hydrotherapy', label: 'Colon hydrotherapy' },

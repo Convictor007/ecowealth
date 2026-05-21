@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New appointment — {{CLINIC_NAME}}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f7f9f8;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+<div style="display:none;max-height:0;overflow:hidden;">New booking from {{PATIENT_NAME}} — {{SERVICE}}. Reply to confirm.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f7f9f8;">
+<tr><td align="center" style="padding:28px 16px 36px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+<tr><td style="background:linear-gradient(145deg, #1a7a4a 0%, #145f3a 42%, #0d5c8c 100%);border-radius:16px 16px 0 0;padding:26px 32px 22px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+<td valign="middle">
+<span style="display:inline-block;padding:6px 12px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#ffffff;">New appointment</span>
+<p style="margin:14px 0 0;font-size:11px;font-weight:600;color:rgba(255,255,255,0.88);">Eco&nbsp;Wealth · Website booking</p>
+<h1 style="margin:8px 0 0;font-size:26px;font-weight:700;line-height:1.2;color:#ffffff;font-family:Georgia,'Times New Roman',serif;">{{CLINIC_NAME}}</h1>
+<p style="margin:10px 0 0;font-size:14px;line-height:1.55;color:rgba(255,255,255,0.92);">{{TAGLINE}}</p>
+</td>
+<td width="56" valign="top" align="right"><div style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.3);text-align:center;line-height:44px;font-size:22px;color:#fff;">&#127807;</div></td>
+</tr></table>
+</td></tr>
+
+<tr><td style="background:#ffffff;border-left:1px solid #d8e4df;border-right:1px solid #d8e4df;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+
+<tr><td style="padding:28px 32px 20px;border-bottom:1px solid #d8e4df;">
+<p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#1a7a4a;">Patient request</p>
+<h2 style="margin:0 0 12px;font-size:22px;font-weight:700;color:#1a2e28;line-height:1.25;">{{PATIENT_NAME}}</h2>
+<span style="display:inline-block;padding:8px 14px;background:#e8f5ee;border:1px solid #d8e4df;border-radius:8px;font-size:14px;font-weight:600;color:#145f3a;">{{SERVICE}}</span>
+</td></tr>
+
+<tr><td style="padding:20px 32px;background:#eef4f1;">
+<p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5f57;">Preferred schedule</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+<td width="50%" valign="top" style="padding-right:8px;">
+<table role="presentation" width="100%" style="background:#fff;border-radius:12px;border:1px solid #d8e4df;"><tr><td style="padding:16px 18px;">
+<p style="margin:0 0 4px;font-size:10px;font-weight:700;color:#4a5f57;text-transform:uppercase;">&#128197; Date</p>
+<p style="margin:0;font-size:15px;font-weight:600;color:#1a2e28;">{{PREFERRED_DATE}}</p>
+</td></tr></table>
+</td>
+<td width="50%" valign="top" style="padding-left:8px;">
+<table role="presentation" width="100%" style="background:#fff;border-radius:12px;border:1px solid #d8e4df;"><tr><td style="padding:16px 18px;">
+<p style="margin:0 0 4px;font-size:10px;font-weight:700;color:#4a5f57;text-transform:uppercase;">&#128336; Time</p>
+<p style="margin:0;font-size:15px;font-weight:600;color:#1a2e28;">{{PREFERRED_TIME}}</p>
+</td></tr></table>
+</td>
+</tr></table>
+</td></tr>
+
+<tr><td style="padding:24px 32px 8px;">
+<p style="margin:0 0 14px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5f57;">Contact details</p>
+{{CONTACT_GRID}}
+</td></tr>
+
+<tr><td style="padding:16px 32px 28px;">
+<p style="margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4a5f57;">Notes from patient</p>
+<table role="presentation" width="100%" style="background:#e8f5ee;border-left:4px solid #1a7a4a;border-radius:0 10px 10px 0;"><tr>
+<td style="padding:16px 20px;font-size:15px;line-height:1.65;color:#1a2e28;">{{NOTES}}</td>
+</tr></table>
+</td></tr>
+
+<tr><td align="center" style="padding:8px 32px 32px;">
+<table role="presentation" cellpadding="0" cellspacing="0"><tr>
+<td style="padding:0 6px;"><a href="{{REPLY_URL}}" style="display:inline-block;padding:15px 32px;background:#1a7a4a;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;border-radius:10px;">Reply to {{PATIENT_NAME}}</a></td>
+<td style="padding:0 6px;"><a href="{{TEL_URL}}" style="display:inline-block;padding:15px 24px;background:#ffffff;color:#145f3a;font-size:15px;font-weight:700;text-decoration:none;border-radius:10px;border:2px solid #1a7a4a;">Call patient</a></td>
+</tr></table>
+<p style="margin:16px 0 0;font-size:13px;color:#4a5f57;">Received {{SUBMITTED_AT}}</p>
+</td></tr>
+
+</table>
+</td></tr>
+
+<tr><td style="background:#0c3d52;border-radius:0 0 16px 16px;padding:26px 32px;">
+<table role="presentation" width="100%"><tr>
+<td valign="top" style="padding-right:16px;">
+<p style="margin:0 0 4px;font-size:16px;font-weight:700;color:#ffffff;">{{PRACTITIONER}}</p>
+<p style="margin:0 0 14px;font-size:13px;color:rgba(255,255,255,0.82);">{{PRACTITIONER_TITLE}}</p>
+<p style="margin:0;font-size:13px;line-height:1.5;color:rgba(255,255,255,0.75);"><strong style="color:#b8e6cf;">Location</strong><br>{{LOCATION}}</p>
+</td>
+<td valign="top" align="right" style="text-align:right;">
+<p style="margin:0 0 6px;font-size:13px;color:rgba(255,255,255,0.75);"><strong style="color:#b8e6cf;">Hours</strong><br>{{HOURS}}</p>
+<p style="margin:14px 0 0;font-size:14px;">{{PHONES_HTML}}</p>
+</td>
+</tr></table>
+<p style="margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.15);font-size:11px;color:rgba(255,255,255,0.5);text-align:center;">{{CLINIC_NAME}} · Automated booking notification</p>
+</td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

@@ -11,7 +11,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Get in touch"
         title="Contact the clinic"
-        description="Schedule appointments, ask about treatments, or inquire about products available in-clinic."
+        description="Book online or call us to schedule appointments and ask about treatments."
       />
       <div className="page-shell">
         <div className="container">

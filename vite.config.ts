@@ -10,18 +10,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/ecowealth_v2/api/appointments': {
-        target: 'http://127.0.0.1',
-        changeOrigin: true,
-        rewrite: (path) => {
-          if (path === '/ecowealth_v2/api/appointments' || path === '/ecowealth_v2/api/appointments/') {
-            return '/ecowealth_v2/api/appointments/index.php'
-          }
-          return path
-        },
-      },
-    },
-  },
+  // Booking uses XAMPP PHP directly (see resolveAppointmentApiUrl). No proxy needed.
 })

@@ -104,10 +104,14 @@ export interface AppointmentRequest {
   preferredDate?: string
   preferredTime?: string
   notes?: string
+  website?: string
 }
 
 export interface AppointmentResponse {
   success: boolean
   message: string
+  emailSent?: boolean
+  referenceId?: string
   errors?: Record<string, string>
 }
+

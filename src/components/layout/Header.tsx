@@ -15,6 +15,7 @@ export default function Header() {
   const { openAppointmentModal } = useAppointmentModal()
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const tel = BOOKING_CTA.phone.replace(/\s/g, '')
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/'
@@ -41,7 +42,7 @@ export default function Header() {
 
           {!isMobile && (
             <div className="site-header__quick">
-              <a href={`tel:${BOOKING_CTA.phone.replace(/\s/g, '')}`} className="site-header__phone">
+              <a href={`tel:${tel}`} className="site-header__phone">
                 <Phone size={16} />
                 {BOOKING_CTA.phone}
               </a>
