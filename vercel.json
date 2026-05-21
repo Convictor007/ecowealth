@@ -3,8 +3,8 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
-    "api/book-appointment.ts": {
-      "includeFiles": "api/lib/**",
+    "api/book-appointment.cjs": {
+      "includeFiles": "api/lib/**/*.cjs",
       "maxDuration": 30
     }
   },
