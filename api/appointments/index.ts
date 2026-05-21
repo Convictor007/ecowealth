@@ -6,6 +6,7 @@ import {
   getClientIp,
   hasValidBookingHeader,
   isBodyTooLarge,
+  isBookingSecurityEnabled,
   isOriginAllowed,
   hashIp,
 } from '../../server/appointments/security'
@@ -44,6 +45,7 @@ async function handler(req: VercelRequest, res: VercelResponse) {
       message: 'Appointments API is running. Send POST JSON to book.',
       provider: 'gmail-smtp',
       emailConfigured: isEmailConfigured(),
+      securityEnabled: isBookingSecurityEnabled(),
       services: APPOINTMENT_SERVICES,
     })
   }
@@ -86,7 +88,7 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ success: false, message: 'Invalid request.' })
   }
 
-  if (data.website) {
+  if (isBookingSecurityEnabled() && data.website) {
     return res.status(200).json({
       success: true,
       message: 'Thank you! Your appointment request was received.',
@@ -94,17 +96,19 @@ async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const ipHash = hashIp(getClientIp(req))
-
-    if (!checkRateLimit(ipHash)) {
-      return res.status(429).json({
-        success: false,
-        message: 'Too many booking attempts. Please try again later or call the clinic.',
-      })
+    if (isBookingSecurityEnabled()) {
+      const ipHash = hashIp(getClientIp(req))
+      if (!checkRateLimit(ipHash)) {
+        return res.status(429).json({
+          success: false,
+          message: 'Too many booking attempts. Please try again later or call the clinic.',
+        })
+      }
+      await sendAppointmentEmail(data)
+      recordRateLimit(ipHash)
+    } else {
+      await sendAppointmentEmail(data)
     }
-
-    await sendAppointmentEmail(data)
-    recordRateLimit(ipHash)
 
     return res.status(200).json({
       success: true,

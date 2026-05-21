@@ -21,7 +21,9 @@ For booking API locally, start **Apache (XAMPP)** — the form uses `api/appoint
 | **Vercel** | `POST /api/appointments` |
 | **XAMPP** | `api/appointments/book.php` |
 
-**Vercel env vars:** `CLINIC_EMAIL`, `MAIL_SMTP_USER`, `MAIL_SMTP_PASS`, `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME`, `RATE_LIMIT_SALT`, `ALLOWED_ORIGINS` (e.g. `https://ecowealth-chi.vercel.app`). Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
+**Vercel env vars (required):** `CLINIC_EMAIL`, `MAIL_SMTP_USER`, `MAIL_SMTP_PASS`, `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME`. Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
+
+**Optional security** (disabled unless `BOOKING_SECURITY_ENABLED=true`): `RATE_LIMIT_SALT`, `ALLOWED_ORIGINS`, `APPOINTMENT_RATE_LIMIT_PER_HOUR`.
 
 **Email template:** edit `api/templates/appointment-email.html` (used by PHP and Vercel).
 
