@@ -25,3 +25,7 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Optional PHP request backup (when STORE_APPOINTMENTS=true)
+api/storage/appointments/*
+!api/storage/appointments/.gitkeep

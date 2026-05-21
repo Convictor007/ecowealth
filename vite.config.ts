@@ -10,5 +10,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // Booking uses XAMPP PHP directly (see resolveAppointmentApiUrl). No proxy needed.
 })
