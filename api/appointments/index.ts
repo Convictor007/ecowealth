@@ -12,7 +12,11 @@ import {
 } from '../../server/appointments/security'
 import { parseJsonBody } from '../../server/appointments/body'
 import { checkRateLimit, recordRateLimit } from '../../server/appointments/rateLimit'
-import { isEmailConfigured, sendAppointmentEmail } from '../../server/appointments/notify'
+import {
+  isEmailConfigured,
+  resolveMailProvider,
+  sendAppointmentEmail,
+} from '../../server/appointments/mailProvider'
 
 function cors(req: VercelRequest, res: VercelResponse) {
   const origin = req.headers.origin
@@ -62,7 +66,7 @@ async function handleRequest(req: VercelRequest, res: VercelResponse) {
     return res.status(503).json({
       success: false,
       message:
-        'Email not configured. Set CLINIC_EMAIL, MAIL_SMTP_USER, and MAIL_SMTP_PASS (Gmail App Password) on Vercel.',
+        'Email not configured. Set RESEND_API_KEY + RESEND_FROM_EMAIL + CLINIC_EMAIL (recommended), or Gmail SMTP vars.',
     })
   }
 

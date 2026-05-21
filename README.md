@@ -1,6 +1,6 @@
 # Eco Wealth Wellnessolution (v2)
 
-Clinic marketing site — Vite, React, TypeScript. Content from static JSON; booking sends email via Gmail SMTP (no database).
+Clinic marketing site — Vite, React, TypeScript. Content from static JSON; booking sends email via **Resend** (recommended on Vercel) or Gmail SMTP locally (no database).
 
 **Live:** https://ecowealth-chi.vercel.app
 
@@ -21,7 +21,11 @@ For booking API locally, start **Apache (XAMPP)** — the form uses `api/appoint
 | **Vercel** | `POST /api/appointments` |
 | **XAMPP** | `api/appointments/book.php` |
 
-**Vercel env vars (required):** `CLINIC_EMAIL`, `MAIL_SMTP_USER`, `MAIL_SMTP_PASS`, `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME`. Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
+**Vercel env vars (recommended — Resend):** `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CLINIC_EMAIL`, `MAIL_FROM_NAME`. Create an API key at [resend.com](https://resend.com) and verify your sending domain (or use `onboarding@resend.dev` only for Resend account testing).
+
+**Alternative (SMTP):** `CLINIC_EMAIL`, `MAIL_SMTP_USER`, `MAIL_SMTP_PASS` — often unreliable on Vercel; prefer Resend.
+
+Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
 
 **Optional security** (disabled unless `BOOKING_SECURITY_ENABLED=true`): `RATE_LIMIT_SALT`, `ALLOWED_ORIGINS`, `APPOINTMENT_RATE_LIMIT_PER_HOUR`.
 
