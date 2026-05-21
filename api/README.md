@@ -56,7 +56,19 @@ Submit a test booking and check the `CLINIC_EMAIL` inbox.
 
 Requests are still saved under `api/storage/appointments/` when `STORE_APPOINTMENTS=true`.
 
-## Requirements
+## Vercel (https://ecowealth-chi.vercel.app)
+
+Production uses **`api/appointments/index.ts`** → `/api/appointments` (not PHP).
+
+In Vercel → Settings → Environment Variables, set `CLINIC_EMAIL`, `MAIL_SMTP_*`, `MAIL_FROM_*`, and:
+
+`CORS_ORIGINS=...,https://ecowealth-chi.vercel.app`
+
+Do **not** set `VITE_APPOINTMENT_API_URL` to localhost on Vercel. Redeploy after saving variables.
+
+Test: https://ecowealth-chi.vercel.app/api/appointments
+
+## Requirements (local XAMPP)
 
 - XAMPP Apache running
 - PHP **openssl** extension enabled (default in XAMPP)

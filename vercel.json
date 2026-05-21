@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/appointment-services.json", "destination": "/api/appointment-services.json" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

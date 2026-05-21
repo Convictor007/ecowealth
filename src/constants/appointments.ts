@@ -1,28 +1,34 @@
 /**
- * Resolve PHP appointments API URL.
- * - Vite dev (port 5173) → Apache on port 80 must be running
- * - Site opened via http://localhost/ecowealth_v2/ → same origin
+ * Appointments API URL.
+ * - Local Vite (5173) / XAMPP → PHP on Apache
+ * - Vercel / production build → same-origin /api/appointments (serverless)
  */
 export function resolveAppointmentApiUrl(): string {
   const fromEnv = import.meta.env.VITE_APPOINTMENT_API_URL as string | undefined
   if (fromEnv) return fromEnv
 
+  const vercelApi = '/api/appointments'
+  const phpPath = '/ecowealth_v2/api/appointments/index.php'
+
   if (typeof window !== 'undefined') {
-    const { protocol, hostname, port, pathname } = window.location
-    const phpPath = '/ecowealth_v2/api/appointments/index.php'
+    const { protocol, hostname, port, pathname, origin } = window.location
 
     if (port === '5173' || port === '4173') {
       return `${protocol}//${hostname}${phpPath}`
     }
 
     if (pathname.includes('/ecowealth_v2')) {
-      return `${window.location.origin}${phpPath}`
+      return `${origin}${phpPath}`
+    }
+
+    if (import.meta.env.PROD) {
+      return `${origin}${vercelApi}`
     }
   }
 
   return import.meta.env.DEV
     ? 'http://localhost/ecowealth_v2/api/appointments/index.php'
-    : '/ecowealth_v2/api/appointments/index.php'
+    : vercelApi
 }
 
 export const APPOINTMENT_API_URL = resolveAppointmentApiUrl()

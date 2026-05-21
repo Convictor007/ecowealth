@@ -36,10 +36,10 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
       body: JSON.stringify(body),
     })
   } catch {
-    throw new ApiError(
-      'Cannot reach the booking server. Start XAMPP Apache, then open the site at http://localhost/ecowealth_v2/ (or set VITE_APPOINTMENT_API_URL in .env).',
-      0,
-    )
+    const hint = import.meta.env.PROD
+      ? 'Booking is temporarily unavailable. Check that the site was deployed with appointment API environment variables on Vercel.'
+      : 'Cannot reach the booking server. Start XAMPP Apache, then open http://localhost/ecowealth_v2/ (or set VITE_APPOINTMENT_API_URL in .env).'
+    throw new ApiError(hint, 0)
   }
 
   const text = await response.text()
@@ -50,8 +50,10 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
       data && typeof data === 'object' && 'message' in data && typeof data.message === 'string'
         ? data.message
         : response.status === 404
-          ? 'Booking API not found. Use http://localhost/ecowealth_v2/ with XAMPP Apache running.'
-          : `Request failed (${response.status}). Check that Apache is running in XAMPP.`
+          ? import.meta.env.PROD
+            ? 'Booking API not found on this host. Redeploy with Vercel serverless appointments enabled.'
+            : 'Booking API not found. Use http://localhost/ecowealth_v2/ with XAMPP Apache running.'
+          : `Request failed (${response.status}).`
     throw new ApiError(message, response.status, data ?? undefined)
   }
 
