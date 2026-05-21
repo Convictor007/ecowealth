@@ -11,6 +11,7 @@
 }
 
 .appointment-modal__dialog {
+  position: relative;
   width: 100%;
   max-width: 520px;
   max-height: min(90vh, 720px);
@@ -19,6 +20,77 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
+}
+
+.appointment-modal__dialog--submitting {
+  overflow: hidden;
+}
+
+.appointment-modal__sending {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-lg);
+}
+
+.appointment-modal__sending-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 280px;
+  padding: 28px 32px;
+  text-align: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.appointment-modal__sending-title {
+  margin: 4px 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.appointment-modal__sending-hint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.appointment-modal__sending-bar {
+  width: 100%;
+  height: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+  background: var(--green-light);
+  border-radius: 4px;
+}
+
+.appointment-modal__sending-bar-fill {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  animation: appointment-sending-progress 1.2s ease-in-out infinite;
+}
+
+@keyframes appointment-sending-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
 }
 
 .appointment-modal__header {
@@ -132,33 +204,6 @@
   color: var(--green-dark);
   font-size: 0.88rem;
   font-weight: 600;
-}
-
-.appointment-modal__loading--overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  text-align: center;
-}
-
-.appointment-modal__loading--overlay p {
-  margin: 8px 0 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.appointment-modal__loading--overlay span {
-  font-size: 0.88rem;
-  color: var(--text-muted);
 }
 
 .appointment-modal__spin {

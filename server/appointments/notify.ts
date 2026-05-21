@@ -1,27 +1,6 @@
-import { createRequire } from 'module'
+import nodemailer from 'nodemailer'
 import type { AppointmentInput } from './validate'
 import { buildAppointmentEmail } from './emailTemplate'
-
-const require = createRequire(import.meta.url)
-const { sendViaGmailSmtp } = require('../../api/lib/gmail-smtp.cjs') as {
-  sendViaGmailSmtp: (opts: {
-    smtp: {
-      host: string
-      port: number
-      encryption: string
-      user: string
-      pass: string
-      fromEmail: string
-    }
-    mailFromName: string
-    fromEmail: string
-    to: string
-    replyTo: string
-    subject: string
-    html: string
-    text: string
-  }) => Promise<{ ok: boolean; error?: string }>
-}
 
 export function isEmailConfigured(): boolean {
   const clinicEmail = process.env.CLINIC_EMAIL
@@ -30,17 +9,28 @@ export function isEmailConfigured(): boolean {
   return Boolean(clinicEmail && smtpUser && smtpPass)
 }
 
-function smtpConfig() {
+function normalizeAppPassword(pass: string): string {
+  return pass.replace(/\s+/g, '')
+}
+
+function createTransport() {
   const smtpUser = process.env.MAIL_SMTP_USER || ''
-  const smtpPass = process.env.MAIL_SMTP_PASS || ''
-  return {
+  const smtpPass = normalizeAppPassword(process.env.MAIL_SMTP_PASS || '')
+  const port = Number(process.env.MAIL_SMTP_PORT || '587')
+  const encryption = (process.env.MAIL_SMTP_ENCRYPTION || 'tls').toLowerCase()
+  const useImplicitSsl = port === 465 || encryption === 'ssl'
+
+  return nodemailer.createTransport({
     host: process.env.MAIL_SMTP_HOST || 'smtp.gmail.com',
-    port: Number(process.env.MAIL_SMTP_PORT || '587'),
-    encryption: (process.env.MAIL_SMTP_ENCRYPTION || 'tls').toLowerCase(),
-    user: smtpUser,
-    pass: smtpPass,
-    fromEmail: process.env.MAIL_FROM_EMAIL || smtpUser,
-  }
+    port,
+    secure: useImplicitSsl,
+    requireTLS: !useImplicitSsl,
+    auth: { user: smtpUser, pass: smtpPass },
+    connectionTimeout: 20_000,
+    greetingTimeout: 20_000,
+    socketTimeout: 30_000,
+    tls: { minVersion: 'TLSv1.2' },
+  })
 }
 
 export async function sendAppointmentEmail(input: AppointmentInput): Promise<void> {
@@ -49,26 +39,30 @@ export async function sendAppointmentEmail(input: AppointmentInput): Promise<voi
   }
 
   const clinicEmail = process.env.CLINIC_EMAIL!
+  const smtpUser = process.env.MAIL_SMTP_USER!
+  const fromEmail = process.env.MAIL_FROM_EMAIL || smtpUser
+  const fromName = process.env.MAIL_FROM_NAME || 'Eco Wealth Appointments'
   const { subject, html, text } = buildAppointmentEmail(input)
-  const mailFromName = process.env.MAIL_FROM_NAME || 'Eco Wealth Appointments'
-  const smtp = smtpConfig()
 
-  const result = await sendViaGmailSmtp({
-    smtp,
-    mailFromName,
-    fromEmail: smtp.fromEmail,
-    to: clinicEmail,
-    replyTo: input.email,
-    subject,
-    html,
-    text,
-  })
+  const transport = createTransport()
 
-  if (!result.ok) {
-    const err = result.error || 'Failed to send appointment email'
-    if (/invalid login|authentication|535|534/i.test(err)) {
+  try {
+    await transport.sendMail({
+      from: `"${fromName.replace(/"/g, '')}" <${fromEmail}>`,
+      to: clinicEmail,
+      replyTo: input.email,
+      subject,
+      text,
+      html,
+    })
+  } catch (err) {
+    const smtpMsg = err instanceof Error ? err.message : String(err)
+    console.error('SMTP send failed:', smtpMsg)
+    if (/invalid login|authentication|535|534/i.test(smtpMsg)) {
       throw new Error('SMTP authentication failed — check Gmail App Password')
     }
-    throw new Error(err)
+    throw new Error(`Failed to send appointment email: ${smtpMsg}`)
+  } finally {
+    transport.close()
   }
 }

@@ -28,7 +28,7 @@ function cors(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Cache-Control', 'no-store')
 }
 
-async function handler(req: VercelRequest, res: VercelResponse) {
+async function handleRequest(req: VercelRequest, res: VercelResponse) {
   cors(req, res)
 
   if (req.method === 'OPTIONS') {
@@ -95,36 +95,53 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     })
   }
 
-  try {
-    if (isBookingSecurityEnabled()) {
-      const ipHash = hashIp(getClientIp(req))
-      if (!checkRateLimit(ipHash)) {
-        return res.status(429).json({
-          success: false,
-          message: 'Too many booking attempts. Please try again later or call the clinic.',
-        })
-      }
-      await sendAppointmentEmail(data)
-      recordRateLimit(ipHash)
-    } else {
-      await sendAppointmentEmail(data)
+  if (isBookingSecurityEnabled()) {
+    const ipHash = hashIp(getClientIp(req))
+    if (!checkRateLimit(ipHash)) {
+      return res.status(429).json({
+        success: false,
+        message: 'Too many booking attempts. Please try again later or call the clinic.',
+      })
     }
+    await sendAppointmentEmail(data)
+    recordRateLimit(ipHash)
+  } else {
+    await sendAppointmentEmail(data)
+  }
 
-    return res.status(200).json({
-      success: true,
-      message:
-        'Thank you! Your appointment request was received. We will contact you soon.',
-      emailSent: true,
-      referenceId: randomUUID().slice(0, 8),
-    })
+  return res.status(200).json({
+    success: true,
+    message:
+      'Thank you! Your appointment request was received. We will contact you soon.',
+    emailSent: true,
+    referenceId: randomUUID().slice(0, 8),
+  })
+}
+
+async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    return await handleRequest(req, res)
   } catch (err) {
     console.error('Appointment API error:', err)
-    const errMsg = err instanceof Error ? err.message : ''
+    const errMsg = err instanceof Error ? err.message : 'Unknown error'
     const authFailed = /authentication failed/i.test(errMsg)
-    const msg = authFailed
-      ? 'Email service misconfigured. Please call the clinic.'
-      : 'Unable to send your request. Please call the clinic.'
-    return res.status(503).json({ success: false, message: msg })
+    const notConfigured = /not configured/i.test(errMsg)
+    const templateMissing = /template not found/i.test(errMsg)
+
+    let msg = 'Unable to send your request. Please call the clinic.'
+    if (notConfigured) {
+      msg = 'Booking email is not configured on the server. Please call the clinic.'
+    } else if (authFailed) {
+      msg = 'Email service misconfigured. Please call the clinic.'
+    } else if (templateMissing) {
+      msg = 'Booking email template error. Please call the clinic.'
+    }
+
+    return res.status(503).json({
+      success: false,
+      message: msg,
+      ...(process.env.VERCEL_ENV !== 'production' && { detail: errMsg }),
+    })
   }
 }
 

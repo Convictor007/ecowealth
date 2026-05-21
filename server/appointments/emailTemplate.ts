@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { existsSync, readFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import type { AppointmentInput } from './validate'
@@ -127,11 +127,25 @@ function buildPhonesHtml(phones: string[]): string {
 
 let cachedTemplate: string | null = null
 
+function templateCandidates(): string[] {
+  const here = dirname(fileURLToPath(import.meta.url))
+  return [
+    join(process.cwd(), 'api/templates/appointment-email.html'),
+    join(here, '../../api/templates/appointment-email.html'),
+    join(here, '../../../api/templates/appointment-email.html'),
+  ]
+}
+
 function loadHtmlTemplate(): string {
   if (cachedTemplate) return cachedTemplate
-  const dir = dirname(fileURLToPath(import.meta.url))
-  const path = join(dir, '../../api/templates/appointment-email.html')
-  cachedTemplate = readFileSync(path, 'utf8')
+  for (const path of templateCandidates()) {
+    if (existsSync(path)) {
+      cachedTemplate = readFileSync(path, 'utf8')
+      return cachedTemplate
+    }
+  }
+  console.warn('appointment-email.html not found; using plain layout fallback')
+  cachedTemplate = '{{FALLBACK_HTML}}'
   return cachedTemplate
 }
 
@@ -185,6 +199,7 @@ function buildHtml(
   const notesRaw = appointment.notes || 'No additional notes provided.'
   const notes = escapeHtml(notesRaw).replace(/\n/g, '<br>')
 
+  const raw = loadHtmlTemplate()
   const vars: Record<string, string> = {
     CLINIC_NAME: escapeNbsp(branding.clinicName),
     TAGLINE: escapeHtml(branding.tagline),
@@ -208,7 +223,35 @@ function buildHtml(
     PHONES_HTML: buildPhonesHtml(branding.phones),
   }
 
-  return applyPlaceholders(loadHtmlTemplate(), vars)
+  if (raw.includes('{{FALLBACK_HTML}}')) {
+    return buildFallbackHtml(appointment, branding, service, submittedAt)
+  }
+
+  return applyPlaceholders(raw, vars)
+}
+
+function buildFallbackHtml(
+  appointment: AppointmentInput,
+  branding: EmailBranding,
+  service: string,
+  submittedAt: string,
+): string {
+  const name = escapeHtml(appointment.fullName)
+  const phone = escapeHtml(appointment.phone)
+  const email = escapeHtml(appointment.email)
+  const serviceHtml = escapeHtml(service)
+  const notes = escapeHtml(appointment.notes || '(none)').replace(/\n/g, '<br>')
+  const clinic = escapeHtml(branding.clinicName)
+
+  return `<!DOCTYPE html><html><body style="font-family:Segoe UI,sans-serif;padding:24px;background:#f7f9f8;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;border:1px solid #d8e4df;">
+<h2 style="color:#1a7a4a;margin:0 0 8px;">${clinic}</h2>
+<p style="color:#4a5f57;margin:0 0 20px;">New appointment request</p>
+<p><strong>Name:</strong> ${name}<br><strong>Phone:</strong> ${phone}<br><strong>Email:</strong> ${email}</p>
+<p><strong>Service:</strong> ${serviceHtml}<br><strong>Date:</strong> ${escapeHtml(formatPreferredDate(appointment.preferredDate))}<br><strong>Time:</strong> ${escapeHtml(formatPreferredTime(appointment.preferredTime))}</p>
+<p><strong>Notes:</strong><br>${notes}</p>
+<p style="font-size:13px;color:#888;margin-top:20px;">${escapeHtml(submittedAt)}</p>
+</div></body></html>`
 }
 
 export function buildAppointmentEmail(

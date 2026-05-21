@@ -4,7 +4,7 @@
   "framework": "vite",
   "functions": {
     "api/appointments/index.ts": {
-      "includeFiles": "api/lib/gmail-smtp.cjs,api/templates/appointment-email.html",
+      "includeFiles": "api/templates/appointment-email.html",
       "maxDuration": 60
     }
   },

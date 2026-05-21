@@ -10,14 +10,6 @@ export class ApiError extends Error {
   }
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
-  const response = await fetch(path)
-  if (!response.ok) {
-    throw new ApiError(`Request failed: ${path}`, response.status)
-  }
-  return response.json() as Promise<T>
-}
-
 function parseJsonBody<T>(text: string): T | null {
   if (!text.trim()) return null
   try {
@@ -25,6 +17,38 @@ function parseJsonBody<T>(text: string): T | null {
   } catch {
     return null
   }
+}
+
+function extractErrorMessage(data: unknown, status: number): string {
+  if (data && typeof data === 'object') {
+    const record = data as Record<string, unknown>
+    if (typeof record.message === 'string' && record.message.trim()) {
+      return record.message
+    }
+    const nested = record.error
+    if (nested && typeof nested === 'object') {
+      const errMsg = (nested as { message?: unknown }).message
+      if (typeof errMsg === 'string' && errMsg.trim()) return errMsg
+    }
+  }
+  if (status === 500) {
+    return 'Booking server error. Please try again or call the clinic.'
+  }
+  return `Request failed (${status}).`
+}
+
+export async function apiGet<T>(path: string): Promise<T> {
+  const response = await fetch(path)
+  const text = await response.text()
+  const data = parseJsonBody<T>(text)
+
+  if (!response.ok) {
+    throw new ApiError(extractErrorMessage(data, response.status), response.status, data ?? undefined)
+  }
+  if (data === null) {
+    throw new ApiError(`Request failed: ${path}`, response.status)
+  }
+  return data
 }
 
 export async function apiPost<T>(path: string, body: unknown): Promise<T> {
@@ -40,7 +64,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
     })
   } catch {
     throw new ApiError(
-      'Cannot reach the booking server. Start Apache (XAMPP) or run vercel dev, then try again.',
+      'Cannot reach the booking server. Check your connection or call the clinic.',
       0,
     )
   }
@@ -49,11 +73,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
   const data = parseJsonBody<T & { message?: string; success?: boolean }>(text)
 
   if (!response.ok) {
-    const message =
-      data && typeof data === 'object' && 'message' in data && typeof data.message === 'string'
-        ? data.message
-        : `Request failed (${response.status}).`
-    throw new ApiError(message, response.status, data ?? undefined)
+    throw new ApiError(extractErrorMessage(data, response.status), response.status, data ?? undefined)
   }
 
   if (data === null) {

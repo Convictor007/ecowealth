@@ -109,13 +109,31 @@ export default function AppointmentModal() {
   return (
     <div className="appointment-modal" role="presentation" onClick={closeAppointmentModal}>
       <div
-        className="appointment-modal__dialog"
+        className={`appointment-modal__dialog${isSubmitting ? ' appointment-modal__dialog--submitting' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="appointment-modal-title"
         aria-busy={formBusy}
         onClick={(e) => e.stopPropagation()}
       >
+        {isSubmitting && (
+          <div
+            className="appointment-modal__sending"
+            role="status"
+            aria-live="assertive"
+            aria-label="Sending appointment request"
+          >
+            <div className="appointment-modal__sending-card">
+              <Loader2 size={40} className="appointment-modal__spin" aria-hidden />
+              <p className="appointment-modal__sending-title">Sending your request</p>
+              <p className="appointment-modal__sending-hint">Connecting to the clinic…</p>
+              <div className="appointment-modal__sending-bar" aria-hidden>
+                <span className="appointment-modal__sending-bar-fill" />
+              </div>
+            </div>
+          </div>
+        )}
+
         <header className="appointment-modal__header">
           <div>
             <h2 id="appointment-modal-title">{BOOKING_CTA.label}</h2>
@@ -145,14 +163,6 @@ export default function AppointmentModal() {
               <div className="appointment-modal__loading appointment-modal__loading--inline" aria-live="polite">
                 <Loader2 size={20} className="appointment-modal__spin" aria-hidden />
                 <span>Loading services…</span>
-              </div>
-            )}
-
-            {isSubmitting && (
-              <div className="appointment-modal__loading appointment-modal__loading--overlay" aria-live="polite">
-                <Loader2 size={36} className="appointment-modal__spin" aria-hidden />
-                <p>Sending your request…</p>
-                <span>Please wait a moment</span>
               </div>
             )}
 
