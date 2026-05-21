@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/**
+ * XAMPP booking endpoint (Apache + PHP).
+ * Vercel uses api/appointments/index.ts — do not add index.php here (route conflict).
+ */
+
 require_once dirname(__DIR__) . '/lib/Cors.php';
 require_once dirname(__DIR__) . '/lib/JsonResponse.php';
 require_once dirname(__DIR__) . '/lib/AppointmentServices.php';

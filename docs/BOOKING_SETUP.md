@@ -4,7 +4,7 @@
 
 | Piece | Source commit | Role |
 |-------|---------------|------|
-| **PHP API** | `6c5d99f` | XAMPP: `api/appointments/index.php` + branded `AppointmentEmailTemplate.php` |
+| **PHP API** | `6c5d99f` | XAMPP: `api/appointments/book.php` + branded `AppointmentEmailTemplate.php` |
 | **Gmail SMTP** | `71d49a9` | Vercel: `api/lib/gmail-smtp.cjs` |
 | **Branded email** | `6c5d99f` (ported to TS) | `server/appointments/emailTemplate.ts` — gradient header, patient/visit cards, footer |
 | **Booking modal UI** | `6c5d99f` | Original header, form layout, colors |
@@ -19,7 +19,7 @@
 
 1. Apache + MySQL not required for booking (email only).
 2. Site at `http://localhost/ecowealth_v2/` → form posts to PHP automatically.
-3. Or `VITE_APPOINTMENT_API_URL=http://localhost/ecowealth_v2/api/appointments/index.php`
+3. Or `VITE_APPOINTMENT_API_URL=http://localhost/ecowealth_v2/api/appointments/book.php`
 
 ## Local Vercel dev
 

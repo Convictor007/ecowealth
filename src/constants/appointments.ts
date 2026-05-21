@@ -7,7 +7,7 @@ export function resolveAppointmentApiUrl(): string {
 
   if (typeof window !== 'undefined') {
     const { hostname, port, pathname, origin } = window.location
-    const phpPath = '/ecowealth_v2/api/appointments/index.php'
+    const phpPath = '/ecowealth_v2/api/appointments/book.php'
 
     if (hostname.includes('vercel.app')) {
       return `${origin}/api/appointments`
@@ -15,7 +15,7 @@ export function resolveAppointmentApiUrl(): string {
 
     // Vite dev → XAMPP PHP (email only; Apache must be running)
     if (port === '5173' || port === '4173') {
-      return `http://${hostname}/ecowealth_v2/api/appointments/index.php`
+      return `http://${hostname}/ecowealth_v2/api/appointments/book.php`
     }
 
     if (pathname.includes('/ecowealth_v2')) {
@@ -26,7 +26,7 @@ export function resolveAppointmentApiUrl(): string {
   }
 
   return import.meta.env.DEV
-    ? 'http://localhost/ecowealth_v2/api/appointments/index.php'
+    ? 'http://localhost/ecowealth_v2/api/appointments/book.php'
     : '/api/appointments'
 }
 

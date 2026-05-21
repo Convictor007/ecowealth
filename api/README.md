@@ -22,12 +22,12 @@ That error means the browser could not talk to **Apache + PHP**, not email.
 
 1. Open **XAMPP Control Panel** → start **Apache**.
 2. In the browser, open:  
-   **http://localhost/ecowealth_v2/api/appointments/index.php**  
+   **http://localhost/ecowealth_v2/api/appointments/book.php**  
    You should see JSON like: `"Appointments API is running"`.
 3. Ensure `.env` contains:
 
    ```
-   VITE_APPOINTMENT_API_URL=http://localhost/ecowealth_v2/api/appointments/index.php
+   VITE_APPOINTMENT_API_URL=http://localhost/ecowealth_v2/api/appointments/book.php
    ```
 
 4. Restart Vite: `npm run dev`, then try **Book free check-up** again.

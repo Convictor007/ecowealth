@@ -1,9 +1,9 @@
-DirectoryIndex index.php
+DirectoryIndex book.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /ecowealth_v2/api/appointments/
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^$ index.php [L]
+  RewriteRule ^$ book.php [L]
 </IfModule>
