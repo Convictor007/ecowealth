@@ -56,17 +56,32 @@ Submit a test booking and check the `CLINIC_EMAIL` inbox.
 
 Requests are still saved under `api/storage/appointments/` when `STORE_APPOINTMENTS=true`.
 
+## Gmail SMTP (local `.env` + Vercel)
+
+1. Turn on **2-Step Verification** for the Gmail account that sends mail.
+2. Create an **App Password**: Google Account → Security → App passwords → Mail.
+3. In `.env` (and Vercel env vars):
+
+```env
+CLINIC_EMAIL=inbox@gmail.com
+MAIL_SMTP_HOST=smtp.gmail.com
+MAIL_SMTP_PORT=587
+MAIL_SMTP_ENCRYPTION=tls
+MAIL_SMTP_USER=your-gmail@gmail.com
+MAIL_SMTP_PASS=your-16-char-app-password
+MAIL_FROM_EMAIL=your-gmail@gmail.com
+MAIL_FROM_NAME=Eco Wealth Appointments
+```
+
+Use the **App Password**, not your normal Gmail login password.
+
 ## Vercel (https://ecowealth-chi.vercel.app)
 
-Production uses **`api/book-appointment.ts`** → `/api/book-appointment` (not PHP; avoids conflict with `api/appointments/index.php`).
+Production uses **`api/book-appointment.js`** + **`api/lib/gmail-smtp.cjs`** → `/api/book-appointment`.
 
-In Vercel → Settings → Environment Variables, set `CLINIC_EMAIL`, `MAIL_SMTP_*`, `MAIL_FROM_*`, and:
+Copy the same `MAIL_*` and `CLINIC_*` variables into Vercel → Settings → Environment Variables (Production + Preview). Do **not** set `VITE_APPOINTMENT_API_URL` on Vercel.
 
-`CORS_ORIGINS=...,https://ecowealth-chi.vercel.app`
-
-Do **not** set `VITE_APPOINTMENT_API_URL` on Vercel (especially not `localhost`) — that causes cross-origin errors that look like CORS failures. Redeploy after saving variables.
-
-Test: https://ecowealth-chi.vercel.app/api/book-appointment
+Test: https://ecowealth-chi.vercel.app/api/book-appointment — expect `"provider":"gmail-smtp"` and `"smtpConfigured":true`.
 
 ## Requirements (local XAMPP)
 

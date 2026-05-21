@@ -1,4 +1,8 @@
-/** Vercel serverless booking API — single file, CommonJS (no ESM / split bundles). */
+/**
+ * Eco Wealth — book appointment (Vercel serverless + Gmail SMTP).
+ * Env: CLINIC_EMAIL, MAIL_SMTP_USER, MAIL_SMTP_PASS, MAIL_FROM_EMAIL, MAIL_FROM_NAME
+ */
+const { sendViaGmailSmtp } = require('./lib/gmail-smtp.cjs')
 
 const SERVICE_LABELS = {
   'free-checkup': 'Free check-up / consultation',
@@ -29,7 +33,6 @@ function loadConfig() {
   const smtpUser = process.env.MAIL_SMTP_USER || ''
   const smtpPass = process.env.MAIL_SMTP_PASS || ''
   const fromEmail = process.env.MAIL_FROM_EMAIL || smtpUser
-  const encryption = (process.env.MAIL_SMTP_ENCRYPTION || 'tls').toLowerCase()
 
   return {
     clinicName: process.env.CLINIC_NAME || 'Eco Wealth Wellnessolution',
@@ -38,7 +41,7 @@ function loadConfig() {
     smtp: {
       host: process.env.MAIL_SMTP_HOST || 'smtp.gmail.com',
       port: Number(process.env.MAIL_SMTP_PORT || '587'),
-      secure: encryption === 'ssl',
+      encryption: (process.env.MAIL_SMTP_ENCRYPTION || 'tls').toLowerCase(),
       user: smtpUser,
       pass: smtpPass,
       fromEmail,
@@ -119,57 +122,36 @@ function buildEmail(appointment, config) {
 
   const text = [
     clinicName,
-    'New appointment request',
+    'New appointment request from your website',
+    '',
     `Name: ${appointment.fullName}`,
     `Phone: ${appointment.phone}`,
     `Email: ${appointment.email}`,
     `Service: ${service}`,
-    `Date: ${appointment.preferredDate || 'Flexible'}`,
-    `Time: ${appointment.preferredTime || 'Flexible'}`,
+    `Preferred date: ${appointment.preferredDate || 'Flexible'}`,
+    `Preferred time: ${appointment.preferredTime || 'Flexible'}`,
     `Notes: ${appointment.notes || '(none)'}`,
+    '',
     `Submitted: ${submittedAt}`,
   ].join('\n')
 
-  const html = `<!DOCTYPE html><html><body style="font-family:sans-serif;padding:24px;">
-<h2>${escapeHtml(clinicName)}</h2>
-<p><strong>New appointment</strong></p>
-<p>Name: ${escapeHtml(appointment.fullName)}<br>
-Phone: ${escapeHtml(appointment.phone)}<br>
-Email: ${escapeHtml(appointment.email)}<br>
-Service: ${escapeHtml(service)}<br>
-Date: ${escapeHtml(appointment.preferredDate || 'Flexible')}<br>
-Time: ${escapeHtml(appointment.preferredTime || 'Flexible')}</p>
-<p>Notes: ${escapeHtml(appointment.notes || '(none)')}</p>
-<p style="color:#666;font-size:13px;">${escapeHtml(submittedAt)}</p>
-</body></html>`
+  const html = `<!DOCTYPE html><html><body style="font-family:Segoe UI,sans-serif;padding:24px;background:#f7f9f8;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;">
+<h2 style="color:#1a7a4a;margin:0 0 8px;">${escapeHtml(clinicName)}</h2>
+<p style="color:#4a5f57;margin:0 0 20px;">New appointment request</p>
+<table style="width:100%;font-size:15px;line-height:1.6;">
+<tr><td style="padding:6px 0;color:#4a5f57;">Name</td><td><strong>${escapeHtml(appointment.fullName)}</strong></td></tr>
+<tr><td style="padding:6px 0;color:#4a5f57;">Phone</td><td>${escapeHtml(appointment.phone)}</td></tr>
+<tr><td style="padding:6px 0;color:#4a5f57;">Email</td><td>${escapeHtml(appointment.email)}</td></tr>
+<tr><td style="padding:6px 0;color:#4a5f57;">Service</td><td style="color:#1a7a4a;font-weight:600;">${escapeHtml(service)}</td></tr>
+<tr><td style="padding:6px 0;color:#4a5f57;">Date</td><td>${escapeHtml(appointment.preferredDate || 'Flexible')}</td></tr>
+<tr><td style="padding:6px 0;color:#4a5f57;">Time</td><td>${escapeHtml(appointment.preferredTime || 'Flexible')}</td></tr>
+</table>
+<p style="margin-top:20px;"><strong>Notes</strong><br>${escapeHtml(appointment.notes || '(none)')}</p>
+<p style="font-size:13px;color:#888;">${escapeHtml(submittedAt)}</p>
+</div></body></html>`
 
   return { subject, html, text }
-}
-
-async function sendEmail(appointment, config) {
-  const { clinicEmail, smtp, mailFromName } = config
-  if (!clinicEmail || !smtp.user || !smtp.pass) return false
-
-  const nodemailer = require('nodemailer')
-  const { subject, html, text } = buildEmail(appointment, config)
-
-  const transport = nodemailer.createTransport({
-    host: smtp.host,
-    port: smtp.port,
-    secure: smtp.secure,
-    auth: { user: smtp.user, pass: smtp.pass },
-  })
-
-  await transport.sendMail({
-    from: `"${String(mailFromName).replace(/"/g, '')}" <${smtp.fromEmail}>`,
-    to: clinicEmail,
-    replyTo: appointment.email,
-    subject,
-    text,
-    html,
-  })
-
-  return true
 }
 
 function applyCors(req, res) {
@@ -206,7 +188,7 @@ function parseBody(req) {
   return null
 }
 
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   applyCors(req, res)
 
   if (req.method === 'OPTIONS') {
@@ -217,17 +199,31 @@ module.exports = async function handler(req, res) {
 
   try {
     const config = loadConfig()
+    const smtpReady = Boolean(
+      config.clinicEmail && config.smtp.user && config.smtp.pass,
+    )
 
     if (req.method === 'GET') {
       return sendJson(res, 200, {
         success: true,
         message: 'Appointments API is running. Send POST JSON to book.',
-        smtpConfigured: Boolean(config.clinicEmail && config.smtp.user && config.smtp.pass),
+        provider: 'gmail-smtp',
+        smtpConfigured: smtpReady,
+        smtpHost: config.smtp.host,
+        smtpPort: config.smtp.port,
       })
     }
 
     if (req.method !== 'POST') {
       return sendJson(res, 405, { success: false, message: 'Method not allowed.' })
+    }
+
+    if (!smtpReady) {
+      return sendJson(res, 503, {
+        success: false,
+        message:
+          'Email not configured. Set CLINIC_EMAIL, MAIL_SMTP_USER, and MAIL_SMTP_PASS (Gmail App Password) on Vercel.',
+      })
     }
 
     const payload = parseBody(req)
@@ -244,17 +240,22 @@ module.exports = async function handler(req, res) {
       })
     }
 
-    let emailSent = false
-    try {
-      emailSent = await sendEmail(data, config)
-    } catch (err) {
-      console.error('SMTP error:', err)
-    }
+    const { subject, html, text } = buildEmail(data, config)
+    const result = await sendViaGmailSmtp({
+      smtp: config.smtp,
+      mailFromName: config.mailFromName,
+      fromEmail: config.smtp.fromEmail,
+      to: config.clinicEmail,
+      replyTo: data.email,
+      subject,
+      html,
+      text,
+    })
 
-    if (!emailSent) {
+    if (!result.ok) {
       return sendJson(res, 200, {
         success: true,
-        message: 'Request received. Our team will follow up with you shortly.',
+        message: 'Request received. Email could not be sent — we will follow up soon.',
         emailSent: false,
       })
     }
@@ -270,7 +271,9 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 500, {
       success: false,
       message: 'Booking server error.',
-      detail: process.env.NODE_ENV === 'development' ? String(err) : undefined,
     })
   }
 }
+
+handler.config = { maxDuration: 60 }
+module.exports = handler

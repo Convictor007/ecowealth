@@ -3,8 +3,9 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
-    "api/book-appointment.cjs": {
-      "maxDuration": 30
+    "api/book-appointment.js": {
+      "includeFiles": "api/lib/gmail-smtp.cjs",
+      "maxDuration": 60
     }
   },
   "headers": [
