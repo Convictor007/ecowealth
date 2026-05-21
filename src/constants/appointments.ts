@@ -1,17 +1,25 @@
 /**
  * Appointments API URL.
  * - Local Vite (5173) / XAMPP → PHP on Apache
- * - Vercel / production build → same-origin /api/book-appointment (serverless)
+ * - Vercel / production → same-origin /api/book-appointment (never localhost from env)
  */
 export function resolveAppointmentApiUrl(): string {
   const fromEnv = import.meta.env.VITE_APPOINTMENT_API_URL as string | undefined
-  if (fromEnv) return fromEnv
-
   const vercelApi = '/api/book-appointment'
   const phpPath = '/ecowealth_v2/api/appointments/index.php'
 
   if (typeof window !== 'undefined') {
     const { protocol, hostname, port, pathname, origin } = window.location
+    const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1'
+
+    // Live site (Vercel or any public host): always same-origin — avoids CORS / wrong env
+    if (!isLocalHost) {
+      return `${origin}${vercelApi}`
+    }
+
+    if (fromEnv) {
+      return fromEnv
+    }
 
     if (port === '5173' || port === '4173') {
       return `${protocol}//${hostname}${phpPath}`
@@ -20,10 +28,10 @@ export function resolveAppointmentApiUrl(): string {
     if (pathname.includes('/ecowealth_v2')) {
       return `${origin}${phpPath}`
     }
+  }
 
-    if (import.meta.env.PROD) {
-      return `${origin}${vercelApi}`
-    }
+  if (fromEnv && import.meta.env.DEV) {
+    return fromEnv
   }
 
   return import.meta.env.DEV
@@ -31,7 +39,8 @@ export function resolveAppointmentApiUrl(): string {
     : vercelApi
 }
 
-export const APPOINTMENT_API_URL = resolveAppointmentApiUrl()
+/** @deprecated Use resolveAppointmentApiUrl() at request time */
+export const APPOINTMENT_API_URL = '/api/book-appointment'
 
 /** Fallback when appointment-services.json cannot be loaded */
 export const APPOINTMENT_SERVICES_FALLBACK = [

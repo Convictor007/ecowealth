@@ -8,6 +8,16 @@
       "maxDuration": 30
     }
   },
+  "headers": [
+    {
+      "source": "/api/book-appointment",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Accept" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/api/appointment-services.json", "destination": "/api/appointment-services.json" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }

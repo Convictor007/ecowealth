@@ -64,7 +64,7 @@ In Vercel → Settings → Environment Variables, set `CLINIC_EMAIL`, `MAIL_SMTP
 
 `CORS_ORIGINS=...,https://ecowealth-chi.vercel.app`
 
-Do **not** set `VITE_APPOINTMENT_API_URL` to localhost on Vercel. Redeploy after saving variables.
+Do **not** set `VITE_APPOINTMENT_API_URL` on Vercel (especially not `localhost`) — that causes cross-origin errors that look like CORS failures. Redeploy after saving variables.
 
 Test: https://ecowealth-chi.vercel.app/api/book-appointment
 

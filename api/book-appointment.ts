@@ -1,27 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { applyBookingCors } from './lib/cors'
 import { loadAppointmentConfig } from './lib/appointments/config'
 import { validateAppointment } from './lib/appointments/validate'
 import { sendAppointmentEmail } from './lib/appointments/mail'
-
-function applyCors(req: VercelRequest, res: VercelResponse, allowedOrigins: string[]): void {
-  const origin = req.headers.origin ?? ''
-  const vercelHost =
-    /^https:\/\/[\w.-]+\.vercel\.app$/.test(origin) ||
-    /^https:\/\/ecowealth[\w-]*\.vercel\.app$/.test(origin)
-
-  if (
-    origin &&
-    (allowedOrigins.includes(origin) ||
-      vercelHost ||
-      /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin))
-  ) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-    res.setHeader('Vary', 'Origin')
-  }
-
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-}
 
 function parseJsonBody(req: VercelRequest): Record<string, unknown> | null {
   const raw = req.body
@@ -39,13 +20,14 @@ function parseJsonBody(req: VercelRequest): Record<string, unknown> | null {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  applyBookingCors(req, res)
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end()
+  }
+
   try {
     const config = loadAppointmentConfig()
-    applyCors(req, res, config.allowedOrigins)
-
-    if (req.method === 'OPTIONS') {
-      return res.status(204).end()
-    }
 
     if (req.method === 'GET') {
       const smtpConfigured = Boolean(

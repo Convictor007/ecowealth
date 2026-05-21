@@ -35,10 +35,12 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     })
-  } catch {
-    const hint = import.meta.env.PROD
-      ? 'Cannot reach the booking API. Open /api/book-appointment on your site—if it errors, add CLINIC_EMAIL and MAIL_SMTP_* in Vercel Environment Variables and redeploy.'
+  } catch (cause) {
+    const isProd = import.meta.env.PROD
+    const hint = isProd
+      ? `Cannot reach ${path}. Open that URL in your browser. If it fails, redeploy after setting CLINIC_EMAIL and MAIL_SMTP_* on Vercel (do not set VITE_APPOINTMENT_API_URL to localhost).`
       : 'Cannot reach the booking server. Start XAMPP Apache, then open http://localhost/ecowealth_v2/ (or set VITE_APPOINTMENT_API_URL in .env).'
+    console.error('Booking request failed:', cause)
     throw new ApiError(hint, 0)
   }
 
