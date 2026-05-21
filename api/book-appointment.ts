@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { loadAppointmentConfig } from '../../server/appointments/config'
-import { validateAppointment } from '../../server/appointments/validate'
-import { sendAppointmentEmail } from '../../server/appointments/mail'
+import { loadAppointmentConfig } from '../server/appointments/config'
+import { validateAppointment } from '../server/appointments/validate'
+import { sendAppointmentEmail } from '../server/appointments/mail'
 
 function applyCors(req: VercelRequest, res: VercelResponse, allowedOrigins: string[]): void {
   const origin = req.headers.origin ?? ''

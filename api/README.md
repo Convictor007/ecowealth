@@ -58,7 +58,7 @@ Requests are still saved under `api/storage/appointments/` when `STORE_APPOINTME
 
 ## Vercel (https://ecowealth-chi.vercel.app)
 
-Production uses **`api/appointments/index.ts`** → `/api/appointments` (not PHP).
+Production uses **`api/book-appointment.ts`** → `/api/book-appointment` (not PHP; avoids conflict with `api/appointments/index.php`).
 
 In Vercel → Settings → Environment Variables, set `CLINIC_EMAIL`, `MAIL_SMTP_*`, `MAIL_FROM_*`, and:
 
@@ -66,7 +66,7 @@ In Vercel → Settings → Environment Variables, set `CLINIC_EMAIL`, `MAIL_SMTP
 
 Do **not** set `VITE_APPOINTMENT_API_URL` to localhost on Vercel. Redeploy after saving variables.
 
-Test: https://ecowealth-chi.vercel.app/api/appointments
+Test: https://ecowealth-chi.vercel.app/api/book-appointment
 
 ## Requirements (local XAMPP)
 

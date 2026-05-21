@@ -1,13 +1,13 @@
 /**
  * Appointments API URL.
  * - Local Vite (5173) / XAMPP → PHP on Apache
- * - Vercel / production build → same-origin /api/appointments (serverless)
+ * - Vercel / production build → same-origin /api/book-appointment (serverless)
  */
 export function resolveAppointmentApiUrl(): string {
   const fromEnv = import.meta.env.VITE_APPOINTMENT_API_URL as string | undefined
   if (fromEnv) return fromEnv
 
-  const vercelApi = '/api/appointments'
+  const vercelApi = '/api/book-appointment'
   const phpPath = '/ecowealth_v2/api/appointments/index.php'
 
   if (typeof window !== 'undefined') {
