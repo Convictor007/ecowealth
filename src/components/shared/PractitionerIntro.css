@@ -1,0 +1,137 @@
+.practitioner-intro {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow);
+  color: #fff;
+}
+
+.practitioner-intro__grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.practitioner-intro__photo-wrap {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.practitioner-intro__photo {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.practitioner-intro__content .section__eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.practitioner-intro__content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #fff;
+  margin: 0 0 6px;
+}
+
+.practitioner-intro__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-light);
+  margin: 0 0 16px;
+}
+
+.practitioner-intro__bio {
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.practitioner-intro__credentials {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.practitioner-intro__credentials li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 10px;
+}
+
+.practitioner-intro__credentials svg {
+  color: var(--green-light);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.practitioner-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.practitioner-compact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.practitioner-compact__photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+}
+
+.practitioner-compact__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.practitioner-compact__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-subtle);
+  margin: 0 0 2px;
+}
+
+.practitioner-compact__name {
+  font-weight: 700;
+  color: var(--blue);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.practitioner-compact__title {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--green);
+}
+
+@media (max-width: 768px) {
+  .practitioner-intro {
+    padding: 24px 20px;
+  }
+
+  .practitioner-intro__grid {
+    grid-template-columns: 1fr;
+  }
+
+}

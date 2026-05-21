@@ -1,0 +1,104 @@
+.wellness-section {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-sm);
+}
+
+.wellness-section__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) 1.1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.wellness-section__media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.wellness-section__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.wellness-section__badge {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 14px;
+}
+
+.wellness-section__content h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--blue);
+  margin: 0 0 8px;
+}
+
+.wellness-section__subtitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--green);
+  margin: 0 0 14px;
+}
+
+.wellness-section__desc {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.wellness-section__benefits {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.wellness-section__benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.wellness-section__benefits svg {
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.wellness-section__note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-subtle);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .wellness-section {
+    padding: 24px 20px;
+  }
+
+  .wellness-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wellness-section__media {
+    order: -1;
+  }
+}

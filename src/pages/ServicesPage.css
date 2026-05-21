@@ -1,0 +1,60 @@
+.services-page {
+  padding: 48px 0 64px;
+  background: var(--bg-muted);
+  min-height: 50vh;
+}
+
+.services-page__practitioner .practitioner-intro {
+  margin-bottom: 32px;
+}
+
+.services-page__all {
+  padding-top: 16px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.service-card {
+  padding: 28px;
+}
+
+.service-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.service-card h3 {
+  font-family: var(--font-serif);
+  color: var(--blue);
+  margin: 0 0 10px;
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.service-card ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.service-card li {
+  font-size: 0.85rem;
+  color: var(--green);
+  margin-bottom: 4px;
+}

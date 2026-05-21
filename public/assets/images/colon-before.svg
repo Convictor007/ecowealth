@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" role="img" aria-label="Before colon hydrotherapy diagram">
+  <defs>
+    <linearGradient id="beforeBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5f0e6"/>
+      <stop offset="100%" stop-color="#e8dcc8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="280" rx="12" fill="url(#beforeBg)"/>
+  <text x="200" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#6b5344" font-weight="700">BEFORE  TOXIC / CONGESTED COLON</text>
+  <path d="M60 200 C60 140, 100 90, 160 85 C200 82, 240 95, 280 110 C320 125, 340 150, 340 180 C340 210, 300 230, 240 235 C180 240, 120 230, 80 210 C55 195, 60 200, 60 200 Z" fill="#6b4423" stroke="#4a2f18" stroke-width="3"/>
+  <path d="M90 175 C110 150, 150 135, 200 132 C250 129, 290 145, 310 165" fill="none" stroke="#3d2814" stroke-width="2" opacity="0.5"/>
+  <ellipse cx="130" cy="155" rx="28" ry="18" fill="#5a3818" opacity="0.7"/>
+  <ellipse cx="220" cy="148" rx="32" ry="20" fill="#5a3818" opacity="0.7"/>
+  <ellipse cx="290" cy="168" rx="24" ry="16" fill="#5a3818" opacity="0.6"/>
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#6b5344">Accumulated waste &amp; toxins</text>
+</svg>

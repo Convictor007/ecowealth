@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" role="img" aria-label="After colon hydrotherapy diagram">
+  <defs>
+    <linearGradient id="afterBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0faf4"/>
+      <stop offset="100%" stop-color="#e0f5e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="280" rx="12" fill="url(#afterBg)"/>
+  <text x="200" y="32" text-anchor="middle" font-family="Georgia, serif" font-size="14" fill="#0d7a3e" font-weight="700">AFTER  CLEAN / HEALTHY COLON</text>
+  <path d="M70 195 C70 145, 110 100, 170 92 C210 88, 250 98, 295 115 C330 128, 345 155, 342 185 C339 215, 295 232, 235 236 C175 240, 115 228, 85 205 C65 188, 70 195, 70 195 Z" fill="#ffc9d4" stroke="#00a651" stroke-width="3"/>
+  <path d="M100 170 C125 148, 165 132, 215 128 C265 124, 305 138, 325 158" fill="none" stroke="#00a651" stroke-width="2" opacity="0.4"/>
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#0d7a3e">Cleansed  improved comfort &amp; vitality</text>
+</svg>

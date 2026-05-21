@@ -1,0 +1,28 @@
+{
+  "name": "Eco Wealth Wellnessolution",
+  "founder": "Edgar Bustamante, N.D.",
+  "founderTitle": "Naturopathy Practitioner",
+  "founderImage": "/assets/edgar-bustamante.png",
+  "founderBio": "Edgar Bustamante, N.D. (Naturopathy Doctor) founded Eco Wealth Wellnessolution to offer scientific colon hydrotherapy, iridology, herbology, and natural wellness products. With years of hands-on practice in the Philippines, he guides each patient with safe, drug-free, in-clinic care tailored to holistic healing.",
+  "founderCredentials": [
+    "Certified Naturopathy Practitioner (N.D.)",
+    "Colon hydrotherapy & iridology specialist",
+    "Herbal medicine & wellness counseling"
+  ],
+  "tagline": "Natural Healing - Holistic Wellness - Trusted Care",
+  "phones": ["0951 611 4125", "0991 391 6469"],
+  "website": "ecowealth.com",
+  "address": {
+    "primary": "Sir William Hotel, Diliman, Timog Avenue, Quezon City, Philippines",
+    "clinic": "ONEWAYHI Health and Wellness, Bicol Region, Philippines"
+  },
+  "coordinates": {
+    "lat": 13.4427417,
+    "lng": 123.4043315
+  },
+  "hours": {
+    "weekdays": "Monday - Saturday",
+    "time": "9:00 AM - 6:00 PM",
+    "note": "Sunday by appointment"
+  }
+}

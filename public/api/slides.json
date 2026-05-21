@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Eco Wealth",
+    "subtitle": "Wellnessolution",
+    "description": "Your trusted partner in holistic wellness and natural healing solutions.",
+    "services": "Colon hydrotherapy · Therapeutic massage · Iridology · Herbal products",
+    "location": "Bicol Region, Philippines",
+    "gps": "13.4427° N, 123.4043° E",
+    "phone": "0951 611 4125",
+    "badge": "Naturopathic clinic",
+    "image": "/assets/images/massages.png"
+  },
+  {
+    "id": 2,
+    "title": "Scientific Colonics",
+    "subtitle": "Cleansing",
+    "description": "Professional colon hydrotherapy with hygienic equipment and practitioner-guided care.",
+    "services": "Natural approach · In-clinic treatment · By appointment",
+    "location": "Bicol Region clinic",
+    "gps": "13.4427° N, 123.4043° E",
+    "phone": "0951 611 4125",
+    "badge": "Signature service",
+    "image": "/assets/images/colon-hydrotherapy.png"
+  },
+  {
+    "id": 3,
+    "title": "Free check-up",
+    "subtitle": "Health awareness",
+    "description": "General check-up and health awareness through iridology. Open to residents—schedule by phone.",
+    "services": "Iridology assessment · Wellness guidance",
+    "location": "Call to book your visit",
+    "gps": "Bicol Region, Philippines",
+    "phone": "0951 611 4125",
+    "badge": "Community offer",
+    "image": "/assets/images/hero-clinic.jpg"
+  }
+]

@@ -1,0 +1,142 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header__bar {
+  padding: 12px 0;
+}
+
+.site-header__bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.site-header__name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1.2;
+}
+
+.site-header__tag {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  letter-spacing: 0.02em;
+}
+
+.site-header__quick {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-header__phone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.site-header__book {
+  padding: 10px 18px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.site-header__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.site-header__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-muted);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.site-header__nav {
+  background: var(--bg-section);
+  border-top: 1px solid var(--border);
+}
+
+.site-header__nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  overflow-x: auto;
+}
+
+.site-header__link {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.site-header__link:hover,
+.site-header__link--active {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+
+@media (max-width: 767px) {
+  .site-header__nav {
+    display: none;
+    border-top: none;
+  }
+
+  .site-header__nav--open {
+    display: block;
+    padding-bottom: 16px;
+  }
+
+  .site-header__nav-inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 24px 0;
+  }
+
+  .site-header__link {
+    border-bottom: none;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .site-header__nav-cta {
+    margin-top: 12px;
+    width: 100%;
+  }
+}

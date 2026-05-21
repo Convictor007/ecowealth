@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "Charcoal (Activated Carbon)",
+    "category": "Food supplement",
+    "price": "Ask at clinic",
+    "description": "Activated carbon capsules — 100 caps. Available in-clinic at Eco Wealth.",
+    "benefits": [
+      "Intestinal gas",
+      "Poisoning",
+      "Diarrhea",
+      "Skin infection",
+      "Teeth whitening",
+      "Mold cleansing"
+    ],
+    "available": true,
+    "image": "/assets/images/product-charcoal.png"
+  },
+  {
+    "id": 2,
+    "name": "Stone Buster",
+    "category": "Food supplement",
+    "price": "Ask at clinic",
+    "description": "Herbal food supplement — 500 mg, 100 capsules. For kidney, gallbladder, and liver support.",
+    "benefits": [
+      "Antipyretic",
+      "Diuretic",
+      "Reduces intestinal gas",
+      "Antibacterial",
+      "Hypoglycemic",
+      "Breaks up and expels kidney stones and gallstones",
+      "Choleretic",
+      "Antihepatotoxic and hepatoprotective — eliminates liver toxins and protects the liver"
+    ],
+    "available": true,
+    "image": "/assets/images/product-stone-buster.png"
+  },
+  {
+    "id": 3,
+    "name": "Spirulina",
+    "category": "Food supplement",
+    "price": "Ask at clinic",
+    "description": "Spirulina food supplement — 100 tablets. Nutrient-dense green superfood.",
+    "benefits": [
+      "High in protein",
+      "Beneficial for the skin",
+      "Anti-inflammatory",
+      "Reduces blood pressure",
+      "Improves digestion",
+      "Helps prevent cancer",
+      "Detoxifying heavy metals",
+      "Reduces cholesterol",
+      "Speeds up weight loss",
+      "Alleviates sinus issues"
+    ],
+    "available": true,
+    "image": "/assets/images/product-spirulina.png"
+  },
+  {
+    "id": 4,
+    "name": "Immune Booster",
+    "category": "Food supplement",
+    "price": "Ask at clinic",
+    "description": "Immune support food supplement — 100 capsules.",
+    "benefits": [
+      "Antiviral effects",
+      "Weight loss",
+      "Prevents gum disease",
+      "Prevents eye disease",
+      "Reduces oxidative stress level",
+      "Improves digestion",
+      "Anti-inflammatory effects",
+      "Improves quality of sleep",
+      "Reduces hay fever symptoms",
+      "Reduces depression symptoms",
+      "Reduces osteoarthritis pain",
+      "Reduces itching",
+      "Reduces blood sugar",
+      "Alleviates cough and sore throat",
+      "Alleviates tonsillitis",
+      "Alleviates ulcerative colitis",
+      "Improves lung function",
+      "Increases body mass index (BMI)",
+      "Improves menopausal symptoms",
+      "Inhibits cancer cell proliferation"
+    ],
+    "available": true,
+    "image": "/assets/images/product-immune-booster.png"
+  },
+  {
+    "id": 5,
+    "name": "Vitamin C (Alkaline)",
+    "category": "Food supplement",
+    "price": "Ask at clinic",
+    "description": "Sodium ascorbate + zinc — alkaline, non-acidic vitamin C. 60 capsules.",
+    "benefits": [
+      "Alkaline (non-acidic) formula — gentle on the stomach",
+      "Sodium ascorbate with zinc",
+      "Immune system support",
+      "Antioxidant protection",
+      "Supports skin health and collagen",
+      "Aids iron absorption"
+    ],
+    "available": true,
+    "image": "/assets/images/product-vitamin-c.png"
+  }
+]

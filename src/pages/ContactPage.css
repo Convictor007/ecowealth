@@ -1,0 +1,71 @@
+.page-shell .practitioner-intro {
+  margin-bottom: 36px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.contact-card {
+  padding: 28px;
+  text-align: center;
+}
+
+.contact-card--link:hover {
+  border-color: var(--green);
+  box-shadow: var(--shadow);
+}
+
+.contact-card h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green);
+  margin: 16px 0 10px;
+}
+
+.contact-card p {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.contact-card a {
+  color: var(--text);
+}
+
+.contact-card__sub {
+  font-weight: 500 !important;
+  font-size: 0.9rem;
+  color: var(--text-muted) !important;
+}
+
+.contact-card > span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+  margin-top: 12px;
+}
+
+.contact-booking-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 28px 24px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-booking-note p {
+  margin: 0;
+  max-width: 480px;
+}

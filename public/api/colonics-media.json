@@ -1,0 +1,19 @@
+{
+  "machine": {
+    "src": "/assets/images/colon-hydrotherapy.png",
+    "alt": "Colon hydrotherapy at Eco Wealth Wellnessolution",
+    "caption": "Scientific colon hydrotherapy — professional in-clinic care"
+  },
+  "before": {
+    "src": "/assets/images/colon-before.png",
+    "alt": "Before colon hydrotherapy — congested colon with accumulated waste",
+    "label": "Before",
+    "caption": "Accumulated waste and toxins in the bowel"
+  },
+  "after": {
+    "src": "/assets/images/colon-after.png",
+    "alt": "After colon hydrotherapy — cleansed healthy colon",
+    "label": "After",
+    "caption": "Cleansed colon — improved comfort and vitality"
+  }
+}

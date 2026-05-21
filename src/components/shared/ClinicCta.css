@@ -1,0 +1,51 @@
+.clinic-cta {
+  background: var(--green);
+  color: #fff;
+  padding: 40px 0;
+}
+
+.clinic-cta--inline {
+  border-radius: var(--radius-lg);
+  margin-top: 48px;
+  padding: 32px;
+  background: var(--green);
+}
+
+.clinic-cta__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.clinic-cta h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.clinic-cta p {
+  margin: 0;
+  opacity: 0.92;
+  max-width: 480px;
+  font-size: 0.95rem;
+}
+
+.clinic-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.clinic-cta .btn--outline {
+  background: #fff;
+  color: var(--green);
+  border-color: #fff;
+}
+
+.clinic-cta .btn--outline:hover {
+  background: var(--green-light);
+  color: var(--green-dark);
+}

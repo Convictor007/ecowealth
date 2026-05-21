@@ -1,0 +1,44 @@
+[
+  {
+    "id": "herbal-coffee",
+    "icon": "leaf",
+    "title": "Herbal Coffee",
+    "description": "Premium medicinal coffee blends combining traditional herbs with wellness science. Our herbal coffee supports digestion, energy, and overall vitality.",
+    "benefits": ["Boosts energy", "Supports digestion", "Rich in antioxidants"]
+  },
+  {
+    "id": "supplements",
+    "icon": "pill",
+    "title": "Food Supplements",
+    "description": "Natural dietary supplements formulated to support your body's nutritional needs. All products are carefully sourced and quality-tested.",
+    "benefits": ["Immune support", "Daily wellness", "Natural ingredients"]
+  },
+  {
+    "id": "iridology",
+    "icon": "eye",
+    "title": "Iridology",
+    "description": "Non-invasive diagnostic technique examining the iris to assess health conditions. Edgar Bustamante, N.D. uses this ancient practice to identify potential health issues.",
+    "benefits": ["Health assessment", "Early detection", "Personalized plans"]
+  },
+  {
+    "id": "herbology",
+    "icon": "flask",
+    "title": "Herbology",
+    "description": "Expert herbal medicine consultations and custom herbal formulations. Personalized remedies based on your specific health needs and constitution.",
+    "benefits": ["Custom remedies", "Natural healing", "Expert guidance"]
+  },
+  {
+    "id": "colon-hydrotherapy",
+    "icon": "droplet",
+    "title": "Colon Hydrotherapy",
+    "description": "Professional colon hydrotherapy and irrigation services for detoxification. Safe, gentle, and effective treatment to improve digestive health and wellness.",
+    "benefits": ["Detoxification", "Improved digestion", "Increased vitality"]
+  },
+  {
+    "id": "wellness-massage",
+    "icon": "hand",
+    "title": "Therapeutic Massage & Holistic Wellness",
+    "description": "In-clinic therapeutic massage and holistic wellness sessions to ease tension, support relaxation, and complement your naturopathic care—natural, drug-free bodywork by appointment.",
+    "benefits": ["Stress relief", "Better relaxation", "Supports circulation", "Pairs with detox programs"]
+  }
+]
