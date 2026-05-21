@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import { createTransport } from 'nodemailer'
 import type { AppointmentPayload } from './validate'
 import type { AppointmentServerConfig } from './config'
 import { buildAppointmentEmail } from './email'
@@ -14,7 +14,7 @@ export async function sendAppointmentEmail(
 
   const { subject, html, text } = buildAppointmentEmail(appointment, config)
 
-  const transport = nodemailer.createTransport({
+  const transport = createTransport({
     host: smtp.host,
     port: smtp.port,
     secure: smtp.secure,

@@ -1,4 +1,4 @@
-import { allowedServiceIds, serviceLabel } from './services'
+import { allowedServiceIds } from './services'
 
 export type AppointmentPayload = {
   fullName: string
@@ -60,5 +60,3 @@ export function validateAppointment(input: Record<string, unknown>): {
     errors,
   }
 }
-
-export { serviceLabel }

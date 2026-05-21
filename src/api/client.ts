@@ -37,7 +37,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
     })
   } catch {
     const hint = import.meta.env.PROD
-      ? 'Booking is temporarily unavailable. Check that the site was deployed with appointment API environment variables on Vercel.'
+      ? 'Cannot reach the booking API. Open /api/book-appointment on your site—if it errors, add CLINIC_EMAIL and MAIL_SMTP_* in Vercel Environment Variables and redeploy.'
       : 'Cannot reach the booking server. Start XAMPP Apache, then open http://localhost/ecowealth_v2/ (or set VITE_APPOINTMENT_API_URL in .env).'
     throw new ApiError(hint, 0)
   }
