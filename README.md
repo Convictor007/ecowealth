@@ -2,7 +2,9 @@
 
 Clinic marketing site — Vite, React, TypeScript. Content from static JSON; booking sends email via **Resend** (recommended on Vercel) or Gmail SMTP locally (no database).
 
-**Live:** https://ecowealth-chi.vercel.app
+**Live:** your Vercel URL (e.g. `https://ecowealth-five.vercel.app`)
+
+**Vercel setup:** see [VERCEL.md](./VERCEL.md) — env var names, Node 20.x, redeploy after import `.env`.
 
 ## Quick start
 

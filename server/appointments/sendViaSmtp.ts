@@ -1,4 +1,3 @@
-import nodemailer from 'nodemailer'
 import type { AppointmentInput } from './validate'
 
 export function isSmtpConfigured(): boolean {
@@ -12,14 +11,15 @@ function normalizeAppPassword(pass: string): string {
   return pass.replace(/\s+/g, '')
 }
 
-function createTransport() {
+async function createTransport() {
+  const nodemailer = await import('nodemailer')
   const smtpUser = process.env.MAIL_SMTP_USER || ''
   const smtpPass = normalizeAppPassword(process.env.MAIL_SMTP_PASS || '')
   const port = Number(process.env.MAIL_SMTP_PORT || '587')
   const encryption = (process.env.MAIL_SMTP_ENCRYPTION || 'tls').toLowerCase()
   const useImplicitSsl = port === 465 || encryption === 'ssl'
 
-  return nodemailer.createTransport({
+  return nodemailer.default.createTransport({
     host: process.env.MAIL_SMTP_HOST || 'smtp.gmail.com',
     port,
     secure: useImplicitSsl,
@@ -43,7 +43,7 @@ export async function sendViaSmtp(args: {
   const fromEmail = process.env.MAIL_FROM_EMAIL || smtpUser
   const fromName = process.env.MAIL_FROM_NAME || 'Eco Wealth Appointments'
 
-  const transport = createTransport()
+  const transport = await createTransport()
 
   try {
     await transport.sendMail({
