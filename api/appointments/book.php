@@ -7,7 +7,6 @@ declare(strict_types=1);
  * Vercel uses api/appointments/index.ts — do not add index.php here (route conflict).
  */
 
-require_once dirname(__DIR__) . '/lib/Cors.php';
 require_once dirname(__DIR__) . '/lib/JsonResponse.php';
 require_once dirname(__DIR__) . '/lib/AppointmentServices.php';
 require_once dirname(__DIR__) . '/lib/AppointmentValidator.php';
@@ -18,15 +17,32 @@ require_once dirname(__DIR__) . '/lib/AppointmentStore.php';
 
 $config = require dirname(__DIR__) . '/lib/bootstrap.php';
 
-Cors::apply($config['allowed_origins']);
-Cors::handlePreflight();
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 if ($method === 'GET') {
+    $smtp = $config['smtp'] ?? [];
+    $emailConfigured = $config['clinic_email'] !== ''
+        && ($smtp['username'] ?? '') !== ''
+        && ($smtp['password'] ?? '') !== '';
+
+    $services = [];
+    foreach (AppointmentServices::labels() as $id => $label) {
+        $services[] = ['id' => $id, 'label' => $label];
+    }
+
     JsonResponse::send([
         'success' => true,
         'message' => 'Appointments API is running. Send POST JSON to book.',
+        'runtime' => 'php-xampp',
+        'provider' => $emailConfigured ? 'smtp' : 'none',
+        'emailConfigured' => $emailConfigured,
+        'securityEnabled' => false,
+        'services' => $services,
     ]);
 }
 

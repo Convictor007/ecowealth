@@ -1,5 +1,6 @@
-import { Resend } from 'resend'
 import type { AppointmentInput } from './validate'
+
+const RESEND_API = 'https://api.resend.com/emails'
 
 export function isResendConfigured(): boolean {
   const apiKey = process.env.RESEND_API_KEY?.trim()
@@ -18,22 +19,33 @@ export async function sendViaResend(args: {
   const clinicEmail = process.env.CLINIC_EMAIL!.trim()
   const fromEmail = process.env.RESEND_FROM_EMAIL!.trim()
   const fromName = process.env.MAIL_FROM_NAME || 'Eco Wealth Appointments'
-
-  const resend = new Resend(apiKey)
   const from = `${fromName.replace(/"/g, '')} <${fromEmail}>`
 
-  const { data, error } = await resend.emails.send({
-    from,
-    to: [clinicEmail],
-    replyTo: args.input.email,
-    subject: args.subject,
-    html: args.html,
-    text: args.text,
+  const response = await fetch(RESEND_API, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from,
+      to: [clinicEmail],
+      reply_to: args.input.email,
+      subject: args.subject,
+      html: args.html,
+      text: args.text,
+    }),
   })
 
-  if (error) {
-    console.error('Resend send failed:', error)
-    const msg = error.message || String(error)
+  const body = (await response.json().catch(() => null)) as {
+    id?: string
+    message?: string
+    name?: string
+  } | null
+
+  if (!response.ok) {
+    const msg = body?.message || body?.name || `Resend HTTP ${response.status}`
+    console.error('Resend send failed:', response.status, body)
     if (/domain|verify|not authorized|from address/i.test(msg)) {
       throw new Error(
         'Resend: verify your sending domain and set RESEND_FROM_EMAIL to an address on that domain.',
@@ -42,7 +54,7 @@ export async function sendViaResend(args: {
     throw new Error(`Failed to send appointment email: ${msg}`)
   }
 
-  if (!data?.id) {
+  if (!body?.id) {
     throw new Error('Failed to send appointment email: empty response from Resend')
   }
 }

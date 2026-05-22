@@ -7,7 +7,6 @@ import {
   hasValidBookingHeader,
   isBodyTooLarge,
   isBookingSecurityEnabled,
-  isOriginAllowed,
   hashIp,
 } from '../../server/appointments/security'
 import { parseJsonBody } from '../../server/appointments/body'
@@ -18,36 +17,23 @@ import {
   sendAppointmentEmail,
 } from '../../server/appointments/mailProvider'
 
-function cors(req: VercelRequest, res: VercelResponse) {
-  const origin = req.headers.origin
-  if (origin && typeof origin === 'string') {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-    res.setHeader('Vary', 'Origin')
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-  }
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, X-EcoWealth-Booking')
+function applyApiHeaders(res: VercelResponse) {
   res.setHeader('X-Content-Type-Options', 'nosniff')
   res.setHeader('Cache-Control', 'no-store')
 }
 
 async function handleRequest(req: VercelRequest, res: VercelResponse) {
-  cors(req, res)
+  applyApiHeaders(res)
 
   if (req.method === 'OPTIONS') {
     return res.status(204).end()
-  }
-
-  if (!isOriginAllowed(req)) {
-    return res.status(403).json({ success: false, message: 'Origin not allowed.' })
   }
 
   if (req.method === 'GET') {
     return res.status(200).json({
       success: true,
       message: 'Appointments API is running. Send POST JSON to book.',
-      provider: 'gmail-smtp',
+      provider: resolveMailProvider(),
       emailConfigured: isEmailConfigured(),
       securityEnabled: isBookingSecurityEnabled(),
       services: APPOINTMENT_SERVICES,
@@ -122,7 +108,7 @@ async function handleRequest(req: VercelRequest, res: VercelResponse) {
   })
 }
 
-async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     return await handleRequest(req, res)
   } catch (err) {
@@ -141,6 +127,10 @@ async function handler(req: VercelRequest, res: VercelResponse) {
       msg = 'Booking email template error. Please call the clinic.'
     }
 
+    if (!res.headersSent) {
+      applyApiHeaders(res)
+    }
+
     return res.status(503).json({
       success: false,
       message: msg,
@@ -149,8 +139,6 @@ async function handler(req: VercelRequest, res: VercelResponse) {
   }
 }
 
-handler.config = {
+export const config = {
   maxDuration: 60,
 }
-
-export default handler

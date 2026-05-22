@@ -27,7 +27,7 @@ For booking API locally, start **Apache (XAMPP)** — the form uses `api/appoint
 
 Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
 
-**Optional security** (disabled unless `BOOKING_SECURITY_ENABLED=true`): `RATE_LIMIT_SALT`, `ALLOWED_ORIGINS`, `APPOINTMENT_RATE_LIMIT_PER_HOUR`.
+**Optional security** (disabled unless `BOOKING_SECURITY_ENABLED=true`): `RATE_LIMIT_SALT`, `APPOINTMENT_RATE_LIMIT_PER_HOUR`.
 
 **Email template:** edit `api/templates/appointment-email.html` (used by PHP and Vercel).
 

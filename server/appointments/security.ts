@@ -38,26 +38,6 @@ export function hashIp(ip: string): string {
   return createHmac('sha256', salt).update(ip).digest('hex')
 }
 
-export function isOriginAllowed(req: VercelRequest): boolean {
-  if (!isBookingSecurityEnabled()) return true
-
-  const origin = req.headers.origin
-  if (!origin || typeof origin !== 'string') {
-    return req.method === 'GET'
-  }
-
-  const allowed = (process.env.ALLOWED_ORIGINS ?? '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-
-  if (allowed.includes(origin)) return true
-  if (/^https:\/\/[\w.-]+\.vercel\.app$/.test(origin)) return true
-  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true
-
-  return false
-}
-
 export function hasValidBookingHeader(req: VercelRequest): boolean {
   if (!isBookingSecurityEnabled()) return true
   const header = req.headers['x-ecowealth-booking']

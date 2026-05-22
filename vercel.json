@@ -5,7 +5,8 @@
   "functions": {
     "api/appointments/index.ts": {
       "includeFiles": "api/templates/appointment-email.html",
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 1024
     }
   },
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]

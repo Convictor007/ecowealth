@@ -16,18 +16,6 @@ final class AppConfig
             $smtpFrom = $smtpUser;
         }
 
-        $corsOrigins = Env::list('CORS_ORIGINS');
-        if ($corsOrigins === []) {
-            $corsOrigins = Env::list('ALLOWED_ORIGINS');
-        }
-        if ($corsOrigins === []) {
-            $corsOrigins = [
-                'http://localhost:5173',
-                'http://127.0.0.1:5173',
-                'http://localhost',
-            ];
-        }
-
         $phones = Env::list('EMAIL_PHONES');
         if ($phones === []) {
             $phones = ['0951 611 4125', '0991 391 6469'];
@@ -53,7 +41,6 @@ final class AppConfig
 
             'mail_from' => $smtpFrom,
             'mail_from_name' => Env::get('MAIL_FROM_NAME', 'Eco Wealth Appointments') ?? 'Eco Wealth Appointments',
-            'allowed_origins' => $corsOrigins,
             'store_requests' => Env::bool('STORE_APPOINTMENTS', true),
 
             'email_branding' => [
