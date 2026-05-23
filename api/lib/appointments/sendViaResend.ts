@@ -1,4 +1,4 @@
-import type { AppointmentInput } from './validate'
+import type { AppointmentInput } from './validate.js'
 
 const RESEND_API = 'https://api.resend.com/emails'
 

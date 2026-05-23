@@ -1,6 +1,6 @@
-import type { AppointmentInput } from './validate'
-import { isResendConfigured } from './sendViaResend'
-import { isSmtpConfigured } from './sendViaSmtp'
+import type { AppointmentInput } from './validate.js'
+import { isResendConfigured } from './sendViaResend.js'
+import { isSmtpConfigured } from './sendViaSmtp.js'
 
 export type MailProvider = 'resend' | 'smtp' | 'none'
 
@@ -20,17 +20,17 @@ export function isEmailConfigured(): boolean {
 
 export async function sendAppointmentEmail(input: AppointmentInput): Promise<void> {
   const provider = resolveMailProvider()
-  const { buildAppointmentEmail } = await import('./emailTemplate')
+  const { buildAppointmentEmail } = await import('./emailTemplate.js')
   const { subject, html, text } = buildAppointmentEmail(input)
 
   if (provider === 'resend') {
-    const { sendViaResend } = await import('./sendViaResend')
+    const { sendViaResend } = await import('./sendViaResend.js')
     await sendViaResend({ input, subject, html, text })
     return
   }
 
   if (provider === 'smtp') {
-    const { sendViaSmtp } = await import('./sendViaSmtp')
+    const { sendViaSmtp } = await import('./sendViaSmtp.js')
     await sendViaSmtp({ input, subject, html, text })
     return
   }

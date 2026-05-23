@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { APPOINTMENT_SERVICES } from '../lib/appointments/services'
+import { APPOINTMENT_SERVICES } from '../lib/appointments/services.js'
 
 export const config = {
   maxDuration: 60,
@@ -50,7 +50,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(405).json({ success: false, message: 'Method not allowed.' })
     }
 
-    const { handlePost } = await import('../lib/appointments/handlePost')
+    const { handlePost } = await import('../lib/appointments/handlePost.js')
     return await handlePost(req, res)
   } catch (err) {
     console.error('Appointment API error:', err)

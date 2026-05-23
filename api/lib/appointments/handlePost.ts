@@ -1,16 +1,16 @@
 import { randomUUID } from 'crypto'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { parseAppointmentBody } from './validate'
+import { parseAppointmentBody } from './validate.js'
 import {
   getClientIp,
   hasValidBookingHeader,
   isBodyTooLarge,
   isBookingSecurityEnabled,
   hashIp,
-} from './security'
-import { parseJsonBody } from './body'
-import { checkRateLimit, recordRateLimit } from './rateLimit'
-import { isEmailConfigured, sendAppointmentEmail } from './mailProvider'
+} from './security.js'
+import { parseJsonBody } from './body.js'
+import { checkRateLimit, recordRateLimit } from './rateLimit.js'
+import { isEmailConfigured, sendAppointmentEmail } from './mailProvider.js'
 
 export async function handlePost(req: VercelRequest, res: VercelResponse) {
   if (!hasValidBookingHeader(req)) {

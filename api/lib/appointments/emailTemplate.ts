@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import type { AppointmentInput } from './validate'
-import { serviceLabel } from './services'
+import type { AppointmentInput } from './validate.js'
+import { serviceLabel } from './services.js'
 
 const BLUE = '#0d5c8c'
 const TEXT_MUTED = '#4a5f57'

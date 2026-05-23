@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ALLOWED_SERVICE_IDS } from './services'
+import { ALLOWED_SERVICE_IDS } from './services.js'
 
 const serviceEnum = z.enum(ALLOWED_SERVICE_IDS)
 

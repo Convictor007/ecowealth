@@ -3,4 +3,4 @@ export {
   sendAppointmentEmail,
   resolveMailProvider,
   type MailProvider,
-} from './mailProvider'
+} from './mailProvider.js'

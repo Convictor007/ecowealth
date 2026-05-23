@@ -1,4 +1,4 @@
-import type { AppointmentInput } from './validate'
+import type { AppointmentInput } from './validate.js'
 
 export function isSmtpConfigured(): boolean {
   const clinicEmail = process.env.CLINIC_EMAIL

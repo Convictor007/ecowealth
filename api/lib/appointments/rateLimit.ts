@@ -1,4 +1,4 @@
-import { getRateLimitPerHour, getRateWindowMs } from './security'
+import { getRateLimitPerHour, getRateWindowMs } from './security.js'
 
 /** Per-instance memory store (best-effort on serverless; no database required). */
 const hitsByIp = new Map<string, number[]>()
