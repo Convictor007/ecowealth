@@ -16,7 +16,7 @@ export default function ClinicLogo({ size = 'md', className = '' }: ClinicLogoPr
     >
       <img
         src="/assets/ecowealthicon.jpeg"
-        alt="Eco Wealth Wellnessolution logo"
+        alt="ECOWEALTH Wellnessolution logo"
         width={px}
         height={px}
         loading="lazy"

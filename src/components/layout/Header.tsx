@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, Moon, Phone, Sun, X } from 'lucide-react'
-import { BOOKING_CTA } from '@/constants/clinic'
+import { BOOKING_CTA, SITE_BRAND } from '@/constants/clinic'
 import { NAV_ITEMS } from '@/constants/navigation'
 import ClinicLogo from '@/components/shared/ClinicLogo'
 import { useAppointmentModal } from '@/context/AppointmentModalContext'
@@ -34,9 +34,9 @@ export default function Header() {
         <div className="container site-header__bar-inner">
           <Link to="/" className="site-header__brand" onClick={() => setMenuOpen(false)}>
             <ClinicLogo size="sm" />
-            <div>
-              <span className="site-header__name">Eco Wealth</span>
-              <span className="site-header__tag">Naturopathic Wellness Clinic</span>
+            <div className="site-header__titles">
+              <span className="site-header__name">{SITE_BRAND.name}</span>
+              <span className="site-header__tag">{SITE_BRAND.tagline}</span>
             </div>
           </Link>
 

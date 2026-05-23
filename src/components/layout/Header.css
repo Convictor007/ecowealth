@@ -25,20 +25,31 @@
   min-width: 0;
 }
 
+.site-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
 .site-header__name {
   display: block;
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--blue);
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
 }
 
 .site-header__tag {
   display: block;
-  font-size: 0.7rem;
-  color: var(--text-subtle);
-  letter-spacing: 0.02em;
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--green);
+  line-height: 1.2;
+  letter-spacing: 0.03em;
 }
 
 .site-header__quick {

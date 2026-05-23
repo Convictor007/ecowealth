@@ -105,7 +105,7 @@ export default function Footer() {
       <div className="site-footer__bottom">
         <div className="container">
           <p>
-            Copyright © {new Date().getFullYear()} Eco Wealth Wellnessolution. All rights reserved.
+            Copyright © {new Date().getFullYear()} ECOWEALTH Wellnessolution. All rights reserved.
           </p>
         </div>
       </div>

@@ -1,3 +1,9 @@
+export const SITE_BRAND = {
+  name: 'ECOWEALTH',
+  tagline: 'Wellnessolution',
+  full: 'ECOWEALTH Wellnessolution',
+} as const
+
 /** Primary booking action — opens secure online booking */
 export const BOOKING_CTA = {
   label: 'Book free check-up',

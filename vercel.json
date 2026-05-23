@@ -4,7 +4,7 @@
   "framework": "vite",
   "functions": {
     "api/appointments/index.ts": {
-      "includeFiles": "api/templates/appointment-email.html",
+      "includeFiles": "{api/templates/appointment-email.html,api/lib/appointments/**}",
       "maxDuration": 60,
       "memory": 1024
     }
