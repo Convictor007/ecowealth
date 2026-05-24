@@ -12,6 +12,26 @@
   margin: 0 0 8px;
 }
 
+.location-address__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.location-address__brand span:first-child {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.06em;
+}
+
+.location-address__brand span:last-child {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.03em;
+}
+
 .location-address p {
   margin: 0;
   color: var(--text-muted);

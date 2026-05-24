@@ -30,7 +30,7 @@ export function loadEmailBranding(): EmailBranding {
   }
 
   return {
-    clinicName: process.env.CLINIC_NAME || 'Eco Wealth Wellnessolution',
+    clinicName: process.env.CLINIC_NAME || 'ECOWEALTH Wellnessolution',
     tagline:
       process.env.EMAIL_TAGLINE || 'Natural Healing · Holistic Wellness · Trusted Care',
     practitioner: process.env.EMAIL_PRACTITIONER || 'Edgar Bustamante, N.D.',
@@ -213,7 +213,7 @@ function buildHtml(
       'mailto:' +
       encodeURIComponent(appointment.email) +
       '?subject=' +
-      encodeURIComponent('Re: Your Eco Wealth appointment request'),
+      encodeURIComponent('Re: Your ECOWEALTH appointment request'),
     TEL_URL: `tel:${escapeHtml(phoneDigits)}`,
     SUBMITTED_AT: escapeHtml(submittedAt),
     PRACTITIONER: escapeHtml(branding.practitioner),

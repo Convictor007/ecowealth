@@ -53,6 +53,27 @@
   text-align: left;
 }
 
+.home-about__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-about__brand-name {
+  display: block;
+  font-size: inherit;
+  color: var(--blue);
+  letter-spacing: 0.06em;
+}
+
+.home-about__brand-tag {
+  display: block;
+  font-size: 0.72em;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.03em;
+}
+
 .home-about__text p {
   color: var(--text-muted);
   line-height: 1.65;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Bus, Car, MapPin, Navigation, Phone } from 'lucide-react'
 import { getClinicInfo } from '@/api/content'
 import type { ClinicInfo } from '@/api/types'
+import { SITE_BRAND } from '@/constants/clinic'
 import PageHero from '@/components/shared/PageHero'
 import './LocationPage.css'
 
@@ -33,14 +34,17 @@ export default function LocationPage() {
       <PageHero
         eyebrow="Find us"
         title="Clinic location"
-        description="Visit Eco Wealth in the Bicol Region. Use the map below for directions."
+        description={`Visit ${SITE_BRAND.full} in the Bicol Region. Use the map below for directions.`}
       />
       <div className="page-shell">
         <div className="container">
           <article className="card location-address">
             <MapPin size={36} color="var(--green)" />
             <div>
-              <h2>Eco Wealth Wellnessolution</h2>
+              <h2 className="location-address__brand">
+                <span>{SITE_BRAND.name}</span>
+                <span>{SITE_BRAND.tagline}</span>
+              </h2>
               <p>
                 ONEWAYHI Health and Wellness
                 <br />

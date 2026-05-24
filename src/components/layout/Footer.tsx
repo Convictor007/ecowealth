@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { SITE_BRAND } from '@/constants/clinic'
+import ClinicLogo from '@/components/shared/ClinicLogo'
 import './Footer.css'
 
 const FOOTER_SERVICES = [
@@ -22,6 +24,13 @@ const FOOTER_CLINIC = [
 export default function Footer() {
   return (
     <footer className="site-footer">
+      <div className="container site-footer__brand">
+        <ClinicLogo size="sm" />
+        <div className="site-footer__brand-text">
+          <span className="site-footer__brand-name">{SITE_BRAND.name}</span>
+          <span className="site-footer__brand-tag">{SITE_BRAND.tagline}</span>
+        </div>
+      </div>
       <div className="container site-footer__columns">
         <div className="site-footer__col">
           <h3>Get in touch</h3>
@@ -105,7 +114,7 @@ export default function Footer() {
       <div className="site-footer__bottom">
         <div className="container">
           <p>
-            Copyright © {new Date().getFullYear()} ECOWEALTH Wellnessolution. All rights reserved.
+            Copyright © {new Date().getFullYear()} {SITE_BRAND.full}. All rights reserved.
           </p>
         </div>
       </div>

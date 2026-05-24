@@ -8,7 +8,7 @@ import './ColonicsSection.css'
 const DEFAULT_MEDIA: ColonicsMedia = {
   machine: {
     src: '/assets/images/colon-hydrotherapy.png',
-    alt: 'Colon hydrotherapy at Eco Wealth Wellnessolution',
+    alt: 'Colon hydrotherapy at ECOWEALTH Wellnessolution',
     caption: 'Scientific colon hydrotherapy — professional in-clinic care',
   },
   before: {

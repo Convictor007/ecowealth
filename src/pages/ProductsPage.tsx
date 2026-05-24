@@ -19,7 +19,7 @@ export default function ProductsPage() {
       <PageHero
         eyebrow="Clinic dispensary"
         title="Wellness products we offer"
-        description="Eco Wealth carries naturopathic and herbal products for your wellness journey. Items below are available for purchase at our clinic—no online ordering."
+        description="ECOWEALTH Wellnessolution carries naturopathic and herbal products for your wellness journey. Items below are available for purchase at our clinic—no online ordering."
       />
 
       <div className="page-shell">

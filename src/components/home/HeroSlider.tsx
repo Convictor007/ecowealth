@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
 import type { HeroSlide } from '@/api/types'
 import './HeroSlider.css'
 
@@ -32,8 +32,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           <p className="clinic-hero__desc">{slide.description}</p>
           <p className="clinic-hero__services">{slide.services}</p>
           <div className="clinic-hero__actions">
-            <Link to="/services" className="btn btn--outline">
+            <Link to="/services" className="btn btn--outline clinic-hero__btn">
               Our services
+            </Link>
+            <Link to="/location" className="btn btn--outline clinic-hero__btn clinic-hero__btn--location">
+              <MapPin size={18} aria-hidden />
+              Location
             </Link>
           </div>
           <div className="clinic-hero__meta">

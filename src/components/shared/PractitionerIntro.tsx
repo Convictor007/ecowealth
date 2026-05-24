@@ -1,4 +1,5 @@
 import { Award } from 'lucide-react'
+import { SITE_BRAND } from '@/constants/clinic'
 import { PRACTITIONER } from '@/constants/practitioner'
 import './PractitionerIntro.css'
 
@@ -37,7 +38,7 @@ export default function PractitionerIntro({
         <div className="practitioner-intro__photo-wrap">
           <img
             src={PRACTITIONER.image}
-            alt={`${PRACTITIONER.name} — ${PRACTITIONER.title} at Eco Wealth Wellnessolution`}
+            alt={`${PRACTITIONER.name} — ${PRACTITIONER.title} at ${SITE_BRAND.full}`}
             className="practitioner-intro__photo"
             loading="lazy"
           />

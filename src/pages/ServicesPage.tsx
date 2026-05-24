@@ -29,7 +29,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Treatments"
         title="Clinic services"
-        description="Naturopathic care at Eco Wealth — colon hydrotherapy, therapeutic massage, iridology, herbology, and more. By appointment."
+        description="Naturopathic care at ECOWEALTH Wellnessolution — colon hydrotherapy, therapeutic massage, iridology, herbology, and more. By appointment."
       />
 
       <div className="services-page">
