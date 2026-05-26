@@ -38,17 +38,11 @@
 }
 
 .colon-education__card {
-  display: grid;
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   padding: 28px;
   border: 1px solid var(--border);
-}
-
-@media (min-width: 900px) {
-  .colon-education__card {
-    grid-template-columns: 1fr minmax(280px, 42%);
-    align-items: start;
-  }
 }
 
 .colon-education__content h3 {
@@ -123,11 +117,14 @@
 
 .colon-education__figure {
   margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .colon-education__image-btn {
   display: block;
   width: 100%;
+  max-width: 520px;
   padding: 0;
   border: 2px solid var(--border);
   border-radius: var(--radius-lg);

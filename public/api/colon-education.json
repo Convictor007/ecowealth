@@ -3,61 +3,62 @@
     {
       "id": "colon-functions",
       "title": "Functions of the colon",
-      "subtitle": "Secretory, digestive, and absorptive roles",
-      "image": "/assets/images/education-colon-functions.jpg",
-      "imageAlt": "Educational chart on colon functions for vitamins, minerals, and gut flora",
-      "summary": "A healthy colon supports digestion, absorbs water and nutrients, and maintains beneficial gut flora. When waste builds up, toxins can be reabsorbed—a concern addressed through professional colon hydrotherapy at our clinic.",
+      "subtitle": "Absorption, gut flora, and natural elimination",
+      "image": "/assets/images/colon-after.png",
+      "imageAlt": "After colon hydrotherapy — cleansed healthy colon",
+      "summary": "Your colon plays a major role in hydration, digestion, gut flora balance, and natural elimination. When it’s functioning well, it supports comfortable digestion and better nutrient use.",
       "topics": [
         {
           "heading": "What the colon does",
           "bullets": [
-            "Secretes mucus to protect the intestinal lining",
-            "Digests remaining food with help from beneficial bacteria",
-            "Absorbs water, electrolytes, and some water-soluble nutrients",
-            "Processes about 350 g of fluid chyme daily into formed stool"
+            "Absorbs water and electrolytes to help keep the body hydrated",
+            "Supports digestion of remaining food with help from beneficial bacteria (gut flora)",
+            "Helps produce and support nutrients tied to gut bacteria activity (e.g., vitamins)",
+            "Forms and stores stool for regular elimination"
           ]
         },
         {
           "heading": "Gut flora and wellness",
           "bullets": [
-            "Beneficial bacteria (e.g. Bifidobacterium, Lactobacillus) support vitamin production and immunity",
-            "Imbalanced flora can contribute to discomfort and poor absorption",
-            "Colon cleansing supports natural elimination when guided by a practitioner"
+            "Balanced gut flora supports digestion, comfort, and immune resilience",
+            "Imbalanced flora can contribute to bloating, irregular bowel movements, and discomfort",
+            "Diet, hydration, stress, and professional guidance can support healthier gut balance"
           ]
         },
         {
           "heading": "Why this matters for your care",
           "bullets": [
-            "Understanding colon function helps explain the benefits of in-clinic hydrotherapy",
-            "Our team uses evidence-based, drug-free methods aligned with naturopathic practice",
-            "Book a free check-up to discuss whether colon hydrotherapy is right for you"
+            "Colon hydrotherapy is an in-clinic, drug-free wellness service focused on natural elimination support",
+            "Our practitioner can help you decide if colon hydrotherapy is appropriate for your symptoms and goals",
+            "Book a free check-up to discuss your digestive wellness plan"
           ]
         }
       ],
-      "credit": "Educational reference — Doctor Colonics / DOC Research Institute"
+      "credit": "Educational content for general wellness awareness — ask our practitioner for personalized advice"
     },
     {
-      "id": "parasites-awareness",
-      "title": "Intestinal parasites & gut health",
-      "subtitle": "Awareness and when to seek care",
-      "image": "/assets/images/education-intestinal-parasites.jpg",
-      "imageAlt": "Educational chart on intestinal parasites and common symptoms",
-      "summary": "Parasites such as tapeworms, pinworms, and others can affect digestion and overall wellness. Symptoms vary; professional assessment and colon hydrotherapy may be part of a holistic care plan at ECOWEALTH Wellnessolution.",
+      "id": "colon-buildup",
+      "title": "When waste builds up",
+      "subtitle": "Comfort, toxins, and digestive slowdown",
+      "image": "/assets/images/colon-before.png",
+      "imageAlt": "Before colon hydrotherapy — congested colon with accumulated waste",
+      "summary": "When bowel movements are irregular, waste can stay longer in the colon. This may contribute to discomfort, bloating, and a feeling of heaviness. Our clinic focuses on safe, hygienic, practitioner-guided care.",
       "topics": [
         {
-          "heading": "How exposure can occur",
+          "heading": "Common factors that can contribute",
           "bullets": [
-            "Undercooked meat or contaminated food and water",
-            "Poor hygiene in high-risk environments",
-            "Tapeworms and other parasites can live in the intestines for extended periods"
+            "Low fiber intake, low water intake, or dehydration",
+            "High stress and irregular routines",
+            "Low physical activity",
+            "Gut flora imbalance and digestive sensitivity"
           ]
         },
         {
           "heading": "When to consult us",
           "bullets": [
-            "Persistent digestive symptoms without clear cause",
-            "Unexplained weight loss, fatigue, or appetite changes",
-            "Interest in parasite support alongside colon cleansing — discuss at your visit"
+            "Constipation, bloating, or irregular bowel movements",
+            "Frequent gas, abdominal discomfort, or heaviness",
+            "If you want to know whether colon hydrotherapy is appropriate for you"
           ]
         }
       ],
@@ -65,12 +66,9 @@
         "Constipation",
         "Gas or bloating",
         "Diarrhea",
-        "Back, joint, or muscle aches",
-        "Irritable bowel–type discomfort",
-        "Allergies or skin problems",
-        "Chronic fatigue",
-        "Anemia",
-        "Sleep or vision problems"
+        "Abdominal discomfort",
+        "Feeling heavy or sluggish",
+        "Irregular bowel movements"
       ],
       "credit": "For educational purposes — consult Edgar Bustamante, N.D. for personalized advice"
     }

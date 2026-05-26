@@ -32,14 +32,26 @@ export default function ColonEducationSection() {
         <span className="colon-education__eyebrow">Patient education</span>
         <h2 id="colon-education-heading">Understanding colon &amp; gut health</h2>
         <p className="colon-education__lead">
-          Educational materials we share at the clinic. Tap a chart to view it larger. For
-          personalized advice, book a free check-up with our practitioner.
+          Key concepts we discuss at the clinic, converted into easy-to-read notes. Tap an image to
+          view it larger. For personalized advice, book a free check-up with our practitioner.
         </p>
       </header>
 
       <div className="colon-education__list">
         {sections.map((item) => (
           <article key={item.id} className="colon-education__card card">
+            <figure className="colon-education__figure">
+              <button
+                type="button"
+                className="colon-education__image-btn"
+                onClick={() => setExpandedImage(item.image)}
+                aria-label={`View full image: ${item.title}`}
+              >
+                <img src={item.image} alt={item.imageAlt} loading="lazy" />
+                <span className="colon-education__zoom-hint">Tap to enlarge</span>
+              </button>
+            </figure>
+
             <div className="colon-education__content">
               <h3>{item.title}</h3>
               {item.subtitle && <p className="colon-education__subtitle">{item.subtitle}</p>}
@@ -69,18 +81,6 @@ export default function ColonEducationSection() {
 
               {item.credit && <p className="colon-education__credit">{item.credit}</p>}
             </div>
-
-            <figure className="colon-education__figure">
-              <button
-                type="button"
-                className="colon-education__image-btn"
-                onClick={() => setExpandedImage(item.image)}
-                aria-label={`View full chart: ${item.title}`}
-              >
-                <img src={item.image} alt={item.imageAlt} loading="lazy" />
-                <span className="colon-education__zoom-hint">Tap to enlarge</span>
-              </button>
-            </figure>
           </article>
         ))}
       </div>

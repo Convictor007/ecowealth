@@ -4,6 +4,7 @@ import './FeatureCards.css'
 
 const CARDS = [
   {
+    tone: 'green',
     title: 'Colon Hydrotherapy',
     description:
       'Professional colon cleansing with modern equipment and trained naturopathic care.',
@@ -11,6 +12,7 @@ const CARDS = [
     linkLabel: 'View service details',
   },
   {
+    tone: 'blue',
     title: 'Therapeutic Massage & Wellness',
     description:
       'In-clinic massage and holistic wellness sessions for relaxation and recovery.',
@@ -18,6 +20,7 @@ const CARDS = [
     linkLabel: 'View service details',
   },
   {
+    tone: 'mint',
     title: 'Iridology Consultation',
     description:
       'Non-invasive iris assessment to support personalized wellness planning.',
@@ -25,6 +28,7 @@ const CARDS = [
     linkLabel: 'View service details',
   },
   {
+    tone: 'sage',
     title: 'Herbal & Wellness Products',
     description:
       'Herbal coffee, supplements, and kits available for purchase at our clinic.',
@@ -46,7 +50,10 @@ export default function FeatureCards() {
         </header>
         <div className="feature-cards__grid">
           {CARDS.map((card) => (
-            <article key={card.title} className="card feature-cards__item">
+            <article
+              key={card.title}
+              className={`card feature-cards__item feature-cards__item--${card.tone}`}
+            >
               <h3>{card.title}</h3>
               <p>{card.description}</p>
               <Link to={card.link} className="feature-cards__link">

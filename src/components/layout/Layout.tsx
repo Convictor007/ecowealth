@@ -4,10 +4,12 @@ import { AppointmentModalProvider } from '@/context/AppointmentModalContext'
 import Footer from './Footer'
 import Header from './Header'
 import ScrollToTop from './ScrollToTop'
+import ScrollToTopOnNavigate from './ScrollToTopOnNavigate'
 
 export default function Layout() {
   return (
     <AppointmentModalProvider>
+      <ScrollToTopOnNavigate />
       <Header />
       <main className="page">
         <Outlet />

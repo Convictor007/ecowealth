@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { getHeroSlides } from '@/api/content'
-import type { HeroSlide } from '@/api/types'
 import FeatureCards from '@/components/home/FeatureCards'
-import FeaturedServices from '@/components/home/FeaturedServices'
-import HeroSlider from '@/components/home/HeroSlider'
-import { BOOKING_CTA, SITE_BRAND } from '@/constants/clinic'
+import HomeHero from '@/components/home/HomeHero'
+import { SITE_BRAND } from '@/constants/clinic'
 import { PRACTITIONER } from '@/constants/practitioner'
 import './HomePage.css'
 
 export default function HomePage() {
-  const [slides, setSlides] = useState<HeroSlide[]>([])
   const location = useLocation()
-
-  useEffect(() => {
-    getHeroSlides().then(setSlides).catch(console.error)
-  }, [])
 
   useEffect(() => {
     if (location.hash === '#about') {
@@ -26,32 +18,46 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      {slides.length > 0 && <HeroSlider slides={slides} />}
+      <HomeHero />
 
-      <section className="section">
+      <section className="section home-page__intro">
         <div className="container home-highlights">
-          <article className="card home-highlight">
-            <span className="home-highlight__tag">Featured treatment</span>
-            <h2>Scientific colon hydrotherapy</h2>
-            <p>
-              Gentle, professional colon cleansing with modern hygienic equipment—personally
-              overseen by {PRACTITIONER.name}.
-            </p>
-            <Link to="/services">Learn about colonics</Link>
+          <article className="card home-highlight home-highlight--colonics">
+            <div
+              className="home-highlight__bg"
+              style={{ backgroundImage: "url('/assets/images/colonics-labatiba-machine.jpg')" }}
+              aria-hidden
+            />
+            <div className="home-highlight__inner">
+              <span className="home-highlight__tag">Featured treatment</span>
+              <h2>Scientific colon hydrotherapy</h2>
+              <p>
+                Gentle, professional colon cleansing with modern hygienic equipment—personally
+                overseen by {PRACTITIONER.name}.
+              </p>
+              <Link to="/services">Learn about colonics</Link>
+            </div>
           </article>
-          <article className="card home-highlight home-highlight--promo">
-            <span className="home-highlight__tag">Community offer</span>
-            <h2>Free general check-up</h2>
-            <p>
-              Health awareness through iridology. Use <strong>{BOOKING_CTA.label}</strong> in the
-              menu above to schedule—open to all residents.
-            </p>
+          <article className="card home-highlight home-highlight--practitioner">
+            <div
+              className="home-highlight__bg"
+              style={{ backgroundImage: "url('/assets/images/hero-clinic.jpg')" }}
+              aria-hidden
+            />
+            <div className="home-highlight__inner">
+              <span className="home-highlight__tag">Why visit us</span>
+              <h2>Drug-free, in-clinic care</h2>
+              <p>
+                Naturopathic services and wellness products under one roof in the Bicol Region—safe,
+                hygienic, and practitioner-guided.
+              </p>
+              <Link to="/contact">Meet our practitioner</Link>
+            </div>
           </article>
         </div>
       </section>
 
       <FeatureCards />
-      <FeaturedServices />
 
       <section id="about" className="section section--alt">
         <div className="container home-about">
@@ -62,8 +68,8 @@ export default function HomePage() {
               <span className="home-about__brand-tag">{SITE_BRAND.tagline}</span>
             </h2>
             <p>
-              Founded by {PRACTITIONER.name}, {SITE_BRAND.full} is a naturopathic wellness clinic serving
-              patients in the Bicol Region and across the Philippines. We combine colon
+              Founded by {PRACTITIONER.name}, {SITE_BRAND.full} is a naturopathic wellness clinic
+              serving patients in the Bicol Region and across the Philippines. We combine colon
               hydrotherapy, iridology, herbal medicine, and in-clinic wellness products under one
               trusted practice.
             </p>
@@ -81,7 +87,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
     </div>
   )
 }
