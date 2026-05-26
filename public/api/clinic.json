@@ -13,12 +13,12 @@
   "phones": ["0951 611 4125", "0991 391 6469"],
   "website": "ecowealth.com",
   "address": {
-    "primary": "Sir William Hotel, Diliman, Timog Avenue, Quezon City, Philippines",
-    "clinic": "ONEWAYHI Health and Wellness, Bicol Region, Philippines"
+    "primary": "San Isidro / Sagrada area (Iriga City–Buhi boundary), Iriga City, Camarines Sur, Bicol Region, Philippines",
+    "clinic": "ONEWAYHI Health and Wellness"
   },
   "coordinates": {
-    "lat": 13.4427417,
-    "lng": 123.4043315
+    "lat": 13.44274,
+    "lng": 123.40433
   },
   "hours": {
     "weekdays": "Monday - Saturday",

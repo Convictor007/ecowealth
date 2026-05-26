@@ -5,8 +5,8 @@
     "category": "Food supplement",
     "brand": "Jeb",
     "price": "Ask at clinic",
-    "description": "Jeb activated carbon capsules — 100 caps. Available in-clinic at ECOWEALTH Wellnessolution.",
-    "packageSize": "100 capsules",
+    "description": "Jeb activated carbon food supplement — 500 mg, 100 capsules. Available in-clinic at ECOWEALTH Wellnessolution.",
+    "packageSize": "100 capsules · 500 mg",
     "benefits": [
       "Intestinal gas",
       "Poisoning",
@@ -16,7 +16,7 @@
       "Mold cleansing"
     ],
     "available": true,
-    "image": "/assets/images/product-charcoal.jpg?v=8"
+    "image": "/assets/images/product-charcoal.jpg?v=9"
   },
   {
     "id": 2,
@@ -37,7 +37,7 @@
       "Antihepatotoxic and hepatoprotective — eliminates liver toxins and protects the liver"
     ],
     "available": true,
-    "image": "/assets/images/product-stone-buster.png?v=8"
+    "image": "/assets/images/product-stone-buster.png?v=9"
   },
   {
     "id": 3,
@@ -45,22 +45,23 @@
     "category": "Food supplement",
     "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "ONEWAYHI spirulina food supplement — 100 tablets. Nutrient-dense green superfood.",
-    "packageSize": "100 tablets",
+    "description": "ONEWAYHI spirulina food supplement — 250 mg, 100 tablets. Nutrient-dense green superfood distributed by OneWayHi Health & Wellness Traders Inc.",
+    "packageSize": "100 tablets · 250 mg",
+    "dosage": "1–4 tablets daily for prevention and supplementation, or as prescribed by your physician.",
     "benefits": [
-      "High in protein",
-      "Beneficial for the skin",
+      "High in protein — supports immunity",
+      "Beneficial for skin, hair, and anti-aging",
       "Anti-inflammatory",
       "Reduces blood pressure",
-      "Improves digestion",
-      "Helps prevent cancer",
+      "Improves digestion and good bacteria growth",
+      "Helps prevent anemia",
       "Detoxifying heavy metals",
       "Reduces cholesterol",
       "Speeds up weight loss",
-      "Alleviates sinus issues"
+      "Alleviates sinus and sleep issues"
     ],
     "available": true,
-    "image": "/assets/images/product-spirulina.jpg?v=8"
+    "image": "/assets/images/product-spirulina.jpg?v=9"
   },
   {
     "id": 4,
@@ -68,36 +69,61 @@
     "category": "Food supplement",
     "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "ONEWAYHI immune booster food supplement — 100 capsules. Available at ECOWEALTH Wellnessolution.",
+    "description": "ONEWAYHI immune booster food supplement — 100 capsules. In-clinic at ECOWEALTH Wellnessolution.",
     "packageSize": "100 capsules",
     "dosage": "1–3 capsules daily for prevention and supplementation, or as prescribed by your physician.",
     "warnings": ["Not recommended for pregnant or breastfeeding women."],
     "benefits": [
-      "Antiviral effects",
-      "Weight loss support",
-      "Prevents gum disease",
-      "Prevents eye disease",
-      "Reduces oxidative stress",
+      "Immune system support",
+      "Antioxidant and anti-inflammatory effects",
       "Improves digestion",
-      "Anti-inflammatory effects",
+      "Supports heart and gum health",
+      "Reduces oxidative stress",
       "Improves quality of sleep",
-      "Reduces hay fever symptoms",
-      "Reduces depression symptoms",
-      "Reduces osteoarthritis pain",
-      "Reduces itching",
-      "Reduces blood sugar",
-      "Alleviates cough and sore throat",
-      "Alleviates tonsillitis",
-      "Alleviates ulcerative colitis",
-      "Improves lung function",
-      "Improves menopausal symptoms",
-      "Inhibits cancer cell proliferation"
+      "Reduces hay fever and allergy symptoms",
+      "Supports blood sugar balance"
     ],
     "available": true,
-    "image": "/assets/images/product-immune-booster.png?v=8"
+    "image": "/assets/images/product-immune-booster.png?v=9"
   },
   {
     "id": 5,
+    "name": "Immune Booster (Jeb Xtreme)",
+    "category": "Food supplement",
+    "brand": "Jeb Xtreme",
+    "price": "Ask at clinic",
+    "description": "Jeb Xtreme immune booster — 300 mg, 100 capsules. Herbal blend with natural ingredients for wellness support.",
+    "packageSize": "100 capsules · 300 mg",
+    "dosage": "As directed on label or by your naturopathic practitioner.",
+    "warnings": ["No approved therapeutic claims. Consult your physician before use."],
+    "ingredients": [
+      "Guyabano",
+      "Mangosteen",
+      "Malunggay (Moringa)",
+      "Garlic",
+      "Turmeric",
+      "Ginger",
+      "Soursop",
+      "Seaweed",
+      "Biotin",
+      "Selenium"
+    ],
+    "benefits": [
+      "Immune and antioxidant support",
+      "Heart and gum health",
+      "Eye health support",
+      "Reduces cholesterol",
+      "Improves sleep quality",
+      "Allergy and digestive symptom relief",
+      "Arthritis symptom support",
+      "Blood sugar balance",
+      "Liver and kidney detox support"
+    ],
+    "available": true,
+    "image": "/assets/images/product-immune-booster-jeb-xtreme.png?v=9"
+  },
+  {
+    "id": 6,
     "name": "Vitamin C (Premium Ascorbate + Zinc)",
     "category": "Food supplement",
     "brand": "ONEWAYHI",
@@ -105,24 +131,40 @@
     "description": "ONEWAYHI premium ascorbate with zinc — 64 capsules. Gentle, non-acidic vitamin C food supplement.",
     "packageSize": "64 capsules",
     "dosage": "1–2 capsules daily for prevention and supplementation, or as prescribed by your physician.",
-    "ingredients": [
-      "Premium ascorbate",
-      "Zinc"
-    ],
+    "ingredients": ["Premium ascorbate", "Zinc"],
     "benefits": [
       "Prevention and treatment of vitamin C deficiency",
       "Supports immunity during stress, illness, and recovery",
       "Non-acidic premium ascorbate — gentle on the stomach",
       "Zinc for added immune support",
       "Antioxidant protection",
-      "Supports skin health and collagen",
-      "Aids iron absorption"
+      "Supports skin health and collagen"
     ],
     "available": true,
-    "image": "/assets/images/product-vitamin-c.jpg?v=8"
+    "image": "/assets/images/product-vitamin-c.jpg?v=9"
   },
   {
-    "id": 6,
+    "id": 7,
+    "name": "Vitamin C (Calcium Ascorbate + Zinc)",
+    "category": "Food supplement",
+    "brand": "ONEWAYHI",
+    "price": "Ask at clinic",
+    "description": "ONEWAYHI calcium ascorbate with zinc — 500 mg, 100 capsules. For prevention and treatment of vitamin C and zinc deficiency.",
+    "packageSize": "100 capsules · 500 mg",
+    "dosage": "1 capsule daily or as prescribed by your physician.",
+    "ingredients": ["Calcium ascorbate 500 mg", "Zinc"],
+    "benefits": [
+      "Prevention and treatment of vitamin C and zinc deficiency",
+      "Supports immunity during stressful times and recovery",
+      "Non-acidic calcium ascorbate — gentle on the stomach",
+      "Post-operative and illness recovery support",
+      "Antioxidant protection"
+    ],
+    "available": true,
+    "image": "/assets/images/product-vitamin-c-calcium-ascorbate-zinc.png?v=9"
+  },
+  {
+    "id": 8,
     "name": "Collagen Premium Coffee",
     "category": "Coffee",
     "brand": "ONEWAYHI",
@@ -144,13 +186,13 @@
       "10-in-1 herbal coffee blend",
       "With glutathione",
       "Convenient single-serve sachets",
-      "Distributed by OneWayHi Health & Wellness Traders Inc."
+      "Manufactured for OneWayHi Health & Wellness Traders Inc."
     ],
     "available": true,
-    "image": "/assets/images/product-collagen-premium-coffee.jpg?v=8"
+    "image": "/assets/images/product-collagen-premium-coffee.jpg?v=9"
   },
   {
-    "id": 7,
+    "id": 9,
     "name": "Organic Herbal Coffee (Purple Corn)",
     "category": "Coffee",
     "brand": "ONEWAYHI",
@@ -181,21 +223,22 @@
       "Manufactured for OneWayHi Health & Wellness Traders Inc."
     ],
     "available": true,
-    "image": "/assets/images/product-herbal-coffee-purple-corn.jpg?v=8"
+    "image": "/assets/images/product-herbal-coffee-purple-corn.jpg?v=9"
   },
   {
-    "id": 8,
+    "id": 10,
     "name": "ASEA RSM Eye Drops",
     "category": "Eye care",
     "brand": "ASEA RSM",
     "price": "Ask at clinic",
-    "description": "ASEA RSM eye drops — distributed by OneWayHi Health & Wellness Traders Inc. Available at our clinic.",
+    "description": "ASEA RSM eye drops — distributed by OneWayHi Health & Wellness Traders Inc. Available at our clinic dispensary.",
+    "packageSize": "Clinic dispensary",
     "benefits": [
       "Eye care support",
       "Available in-clinic",
       "Distributed by OneWayHi Health & Wellness Traders Inc."
     ],
     "available": true,
-    "image": "/assets/images/product-asea-eye-drops.jpg?v=8"
+    "image": "/assets/images/product-asea-eye-drops.jpg?v=9"
   }
 ]

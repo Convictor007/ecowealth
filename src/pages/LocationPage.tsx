@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Bus, Car, MapPin, Navigation, Phone } from 'lucide-react'
+import { Bus, Car, Clock, MapPin, Navigation } from 'lucide-react'
 import { getClinicInfo } from '@/api/content'
 import type { ClinicInfo } from '@/api/types'
 import { SITE_BRAND } from '@/constants/clinic'
 import PageHero from '@/components/shared/PageHero'
 import './LocationPage.css'
+
+function mapsEmbedUrl(lat: number, lng: number) {
+  return `https://maps.google.com/maps?q=${lat},${lng}&hl=en&z=14&output=embed`
+}
 
 export default function LocationPage() {
   const [clinic, setClinic] = useState<ClinicInfo | null>(null)
@@ -16,90 +20,156 @@ export default function LocationPage() {
   const openDirections = () => {
     if (!clinic) return
     const { lat, lng } = clinic.coordinates
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank')
+    window.open(
+      `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
   }
 
   const openMapView = () => {
     if (!clinic) return
     const { lat, lng } = clinic.coordinates
-    window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`, '_blank')
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
   }
-
-  const mapEmbedUrl = clinic
-    ? `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15607!2d${clinic.coordinates.lng}!3d${clinic.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDI2JzMzLjkiTiAxMjPCsDI0JzE1LjYiRQ!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph`
-    : ''
 
   return (
     <>
       <PageHero
         eyebrow="Find us"
-        title="Clinic location"
-        description={`Visit ${SITE_BRAND.full} in the Bicol Region. Use the map below for directions.`}
+        title="Visit our clinic"
+        description={`Plan your trip to ${SITE_BRAND.full}. View the map and clinic hours below.`}
       />
-      <div className="page-shell">
+
+      <div className="page-shell location-page">
         <div className="container">
-          <article className="card location-address">
-            <MapPin size={36} color="var(--green)" />
-            <div>
-              <h2 className="location-address__brand">
-                <span>{SITE_BRAND.name}</span>
-                <span>{SITE_BRAND.tagline}</span>
-              </h2>
-              <p>
-                ONEWAYHI Health and Wellness
-                <br />
-                Bicol Region, Philippines
-              </p>
-            </div>
-          </article>
-
-          <section className="card location-map">
-            <h2>Map & directions</h2>
-            {mapEmbedUrl && (
-              <div className="location-map__embed">
-                <iframe src={mapEmbedUrl} title="Clinic location map" loading="lazy" allowFullScreen />
-              </div>
-            )}
-            <div className="location-map__actions">
-              <button type="button" className="btn btn--primary" onClick={openDirections}>
-                <Navigation size={18} />
-                Get directions
-              </button>
-              <button type="button" className="btn btn--outline" onClick={openMapView}>
-                Open in Google Maps
-              </button>
-            </div>
-            {clinic && (
-              <p className="location-map__coords">
-                {clinic.coordinates.lat}° N, {clinic.coordinates.lng}° E
-              </p>
-            )}
-          </section>
-
-          <section className="card location-tips">
-            <h2>Getting here</h2>
-            <div className="location-tips__item">
-              <Car size={20} color="var(--green)" />
-              <div>
-                <h3>By car</h3>
-                <p>Navigate to Bicol Region using GPS. Contact us if you need turn-by-turn guidance.</p>
-              </div>
-            </div>
-            <div className="location-tips__item">
-              <Bus size={20} color="var(--green)" />
-              <div>
-                <h3>Public transport</h3>
-                <p>Buses and jeepneys serve the region. Call ahead for local transport advice.</p>
-              </div>
-            </div>
-            <div className="location-tips__item">
-              <Phone size={20} color="var(--green)" />
-              <div>
-                <h3>Need help?</h3>
-                <p>
-                  <a href="tel:09516114125">0951 611 4125</a>
+          <div className="location-page__grid">
+            <aside className="location-page__info">
+              <article className="card location-card location-card--primary">
+                <div className="location-card__icon-wrap" aria-hidden>
+                  <MapPin size={28} />
+                </div>
+                <h2 className="location-card__title">Clinic address</h2>
+                <p className="location-card__brand">
+                  <span className="location-card__brand-name">{SITE_BRAND.name}</span>
+                  <span className="location-card__brand-tag">{SITE_BRAND.tagline}</span>
                 </p>
+                {clinic ? (
+                  <>
+                    <p className="location-card__address">{clinic.address.primary}</p>
+                    {clinic.address.clinic && clinic.address.clinic !== clinic.address.primary && (
+                      <p className="location-card__address location-card__address--secondary">
+                        {clinic.address.clinic}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <p className="location-card__address">Loading address…</p>
+                )}
+              </article>
+
+              {clinic && (
+                <>
+                  <article className="card location-card">
+                    <div className="location-card__icon-wrap location-card__icon-wrap--muted" aria-hidden>
+                      <Clock size={24} />
+                    </div>
+                    <h2 className="location-card__title">Clinic hours</h2>
+                    <dl className="location-hours">
+                      <div>
+                        <dt>Days</dt>
+                        <dd>{clinic.hours.weekdays}</dd>
+                      </div>
+                      <div>
+                        <dt>Hours</dt>
+                        <dd>{clinic.hours.time}</dd>
+                      </div>
+                      {clinic.hours.note && (
+                        <div>
+                          <dt>Note</dt>
+                          <dd>{clinic.hours.note}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  </article>
+
+                </>
+              )}
+            </aside>
+
+            <section className="location-page__map" aria-labelledby="location-map-heading">
+              <div className="location-map card">
+                <div className="location-map__header">
+                  <h2 id="location-map-heading">Map &amp; directions</h2>
+                  <p>Open in Google Maps for turn-by-turn navigation.</p>
+                </div>
+
+                {clinic && (
+                  <div className="location-map__embed">
+                    <iframe
+                      src={mapsEmbedUrl(clinic.coordinates.lat, clinic.coordinates.lng)}
+                      title={`Map showing ${SITE_BRAND.full} clinic location`}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                )}
+
+                <div className="location-map__actions">
+                  <button
+                    type="button"
+                    className="btn btn--primary location-map__btn"
+                    onClick={openDirections}
+                    disabled={!clinic}
+                  >
+                    <Navigation size={18} aria-hidden />
+                    Get directions
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--outline location-map__btn"
+                    onClick={openMapView}
+                    disabled={!clinic}
+                  >
+                    Open in Google Maps
+                  </button>
+                </div>
+
+                {clinic && (
+                  <p className="location-map__coords">
+                    GPS: {clinic.coordinates.lat.toFixed(5)}° N, {clinic.coordinates.lng.toFixed(5)}° E
+                  </p>
+                )}
               </div>
+            </section>
+          </div>
+
+          <section className="location-tips" aria-labelledby="location-tips-heading">
+            <h2 id="location-tips-heading" className="location-tips__heading">
+              Getting here
+            </h2>
+            <div className="location-tips__grid">
+              <article className="card location-tips__card">
+                <Car size={22} className="location-tips__icon" aria-hidden />
+                <h3>By car</h3>
+                <p>
+                  Use <strong>Get directions</strong> above for GPS navigation to Iriga City,
+                  Camarines Sur.
+                </p>
+              </article>
+              <article className="card location-tips__card">
+                <Bus size={22} className="location-tips__icon" aria-hidden />
+                <h3>Public transport</h3>
+                <p>
+                  Buses and jeepneys serve Iriga City and the wider Bicol Region. Use the map above
+                  for the nearest stop and walking route to the clinic.
+                </p>
+              </article>
             </div>
           </section>
         </div>
