@@ -25,13 +25,13 @@ const FEATURED = [
     title: 'Herbal Consultation',
     description: 'Custom herbal guidance tailored to your constitution and goals.',
     benefits: ['Natural remedies', 'Expert guidance', 'Long-term wellness'],
-    image: '/assets/images/featured-herbal.jpg',
+    image: '/assets/images/about-herbal-modern.jpg',
   },
   {
     title: 'In-clinic products',
     description: 'ONEWAYHI herbal coffees, supplements, eye drops, and wellness kits at our dispensary.',
     benefits: ['Quality sourced', 'Staff guidance', 'Available on visit'],
-    image: '/assets/images/product-collagen-premium-coffee.jpg',
+    image: '/assets/images/featured-clinic-products.jpg',
   },
 ]
 
