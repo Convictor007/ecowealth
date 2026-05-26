@@ -14,7 +14,7 @@ cp .env.example .env   # set CLINIC_EMAIL, MAIL_SMTP_*, etc.
 npm run dev            # http://localhost:5173
 ```
 
-For booking API locally, start **Apache (XAMPP)** — the form uses `api/appointments/book.php` automatically in dev.
+For booking locally, `npm run dev` serves **`POST /api/appointments`** via a Vite plugin (uses `.env` Resend/SMTP). XAMPP is optional; use `book.php` only when hosting under Apache (`/ecowealth_v2`).
 
 ## Booking (email only)
 

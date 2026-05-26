@@ -1,6 +1,7 @@
 import { apiGet } from './client'
 import type {
   ClinicInfo,
+  ColonEducationContent,
   ColonicsConditions,
   ColonicsMedia,
   HeroSlide,
@@ -33,6 +34,10 @@ export function getColonicsConditions() {
 
 export function getColonicsMedia() {
   return apiGet<ColonicsMedia>(`${API_BASE}/colonics-media.json`)
+}
+
+export function getColonEducation() {
+  return apiGet<ColonEducationContent>(`${API_BASE}/colon-education.json`)
 }
 
 export function getWellnessMassage() {

@@ -6,7 +6,7 @@ const FEATURED = [
     title: 'Colon Hydrotherapy',
     description: 'Professional cleansing to support digestive wellness and detoxification.',
     benefits: ['Detoxification', 'Improved digestion', 'Increased energy'],
-    image: '/assets/images/colon-hydrotherapy.png',
+    image: '/assets/images/colonics-labatiba-machine.jpg',
   },
   {
     title: 'Therapeutic Massage & Wellness',
@@ -29,9 +29,9 @@ const FEATURED = [
   },
   {
     title: 'In-clinic products',
-    description: 'Herbal coffee, supplements, and wellness kits sold at our dispensary.',
+    description: 'ONEWAYHI herbal coffees, supplements, eye drops, and wellness kits at our dispensary.',
     benefits: ['Quality sourced', 'Staff guidance', 'Available on visit'],
-    image: '/assets/images/product-tea.jpg',
+    image: '/assets/images/product-collagen-premium-coffee.jpg',
   },
 ]
 

@@ -1,8 +1,14 @@
 {
+  "serviceName": "Modern Labatiba colon hydrotherapy",
   "machine": {
-    "src": "/assets/images/colon-hydrotherapy.png",
-    "alt": "Colon hydrotherapy at ECOWEALTH Wellnessolution",
-    "caption": "Scientific colon hydrotherapy — professional in-clinic care"
+    "src": "/assets/images/colonics-labatiba-machine.jpg",
+    "alt": "Modern Labatiba colon cleansing machine at ECOWEALTH Wellnessolution",
+    "caption": "Modern colon cleansing machine — the Seven Rs of colon hydrotherapy, 100% natural in-clinic care"
+  },
+  "poster": {
+    "src": "/assets/images/labatiba-poster.jpg",
+    "alt": "Modern Labatiba colon cleansing — before and after illustration",
+    "caption": "Modern Labatiba — 100% natural colon cleansing technique"
   },
   "before": {
     "src": "/assets/images/colon-before.png",

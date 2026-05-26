@@ -6,10 +6,16 @@ import { COLONICS_CONDITIONS } from '@/constants/colonicsConditions'
 import './ColonicsSection.css'
 
 const DEFAULT_MEDIA: ColonicsMedia = {
+  serviceName: 'Modern Labatiba colon hydrotherapy',
   machine: {
-    src: '/assets/images/colon-hydrotherapy.png',
-    alt: 'Colon hydrotherapy at ECOWEALTH Wellnessolution',
-    caption: 'Scientific colon hydrotherapy — professional in-clinic care',
+    src: '/assets/images/colonics-labatiba-machine.jpg',
+    alt: 'Modern Labatiba colon cleansing machine at ECOWEALTH Wellnessolution',
+    caption: 'Modern colon cleansing machine — the Seven Rs of colon hydrotherapy',
+  },
+  poster: {
+    src: '/assets/images/labatiba-poster.jpg',
+    alt: 'Modern Labatiba colon cleansing — before and after',
+    caption: 'Modern Labatiba — 100% natural colon cleansing',
   },
   before: {
     src: '/assets/images/colon-before.png',
@@ -43,12 +49,24 @@ export default function ColonicsSection() {
       <div className="colonics-section__intro">
         <span className="colonics-section__badge">100% Natural</span>
         <h2 id="colonics-heading">Scientific Colonics Cleansing</h2>
-        <p className="colonics-section__subtitle">New Hi-Tech &amp; Hygienic Colonics Machine</p>
+        <p className="colonics-section__subtitle">
+          {media.serviceName ?? 'New Hi-Tech & Hygienic Colonics Machine'}
+        </p>
         <p className="colonics-section__desc">
           Based on the methods of Dr. Bernard Jensen—supporting natural elimination of toxins
-          through professional in-clinic colon hydrotherapy. No drugs, no pain, no operation.
+          through professional in-clinic colon hydrotherapy (Modern Labatiba). No drugs, no pain,
+          no operation.
         </p>
       </div>
+
+      {media.poster && (
+        <figure className="colonics-section__poster">
+          <div className="colonics-section__poster-visual">
+            <img src={media.poster.src} alt={media.poster.alt} loading="lazy" />
+          </div>
+          {media.poster.caption && <figcaption>{media.poster.caption}</figcaption>}
+        </figure>
+      )}
 
       <figure className="colonics-section__machine">
         <div className="colonics-section__machine-visual">

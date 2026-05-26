@@ -3,8 +3,10 @@
     "id": 1,
     "name": "Charcoal (Activated Carbon)",
     "category": "Food supplement",
+    "brand": "Jeb",
     "price": "Ask at clinic",
-    "description": "Activated carbon capsules — 100 caps. Available in-clinic at ECOWEALTH Wellnessolution.",
+    "description": "Jeb activated carbon capsules — 100 caps. Available in-clinic at ECOWEALTH Wellnessolution.",
+    "packageSize": "100 capsules",
     "benefits": [
       "Intestinal gas",
       "Poisoning",
@@ -14,14 +16,16 @@
       "Mold cleansing"
     ],
     "available": true,
-    "image": "/assets/images/product-charcoal.png"
+    "image": "/assets/images/product-charcoal.jpg?v=8"
   },
   {
     "id": 2,
     "name": "Stone Buster",
     "category": "Food supplement",
+    "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "Herbal food supplement — 500 mg, 100 capsules. For kidney, gallbladder, and liver support.",
+    "description": "ONEWAYHI Stone Buster food supplement — 300 mg, 100 capsules. For kidney, gallbladder, and liver support.",
+    "packageSize": "100 capsules · 300 mg",
     "benefits": [
       "Antipyretic",
       "Diuretic",
@@ -33,14 +37,16 @@
       "Antihepatotoxic and hepatoprotective — eliminates liver toxins and protects the liver"
     ],
     "available": true,
-    "image": "/assets/images/product-stone-buster.png"
+    "image": "/assets/images/product-stone-buster.png?v=8"
   },
   {
     "id": 3,
     "name": "Spirulina",
     "category": "Food supplement",
+    "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "Spirulina food supplement — 100 tablets. Nutrient-dense green superfood.",
+    "description": "ONEWAYHI spirulina food supplement — 100 tablets. Nutrient-dense green superfood.",
+    "packageSize": "100 tablets",
     "benefits": [
       "High in protein",
       "Beneficial for the skin",
@@ -54,20 +60,24 @@
       "Alleviates sinus issues"
     ],
     "available": true,
-    "image": "/assets/images/product-spirulina.png"
+    "image": "/assets/images/product-spirulina.jpg?v=8"
   },
   {
     "id": 4,
     "name": "Immune Booster",
     "category": "Food supplement",
+    "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "Immune support food supplement — 100 capsules.",
+    "description": "ONEWAYHI immune booster food supplement — 100 capsules. Available at ECOWEALTH Wellnessolution.",
+    "packageSize": "100 capsules",
+    "dosage": "1–3 capsules daily for prevention and supplementation, or as prescribed by your physician.",
+    "warnings": ["Not recommended for pregnant or breastfeeding women."],
     "benefits": [
       "Antiviral effects",
-      "Weight loss",
+      "Weight loss support",
       "Prevents gum disease",
       "Prevents eye disease",
-      "Reduces oxidative stress level",
+      "Reduces oxidative stress",
       "Improves digestion",
       "Anti-inflammatory effects",
       "Improves quality of sleep",
@@ -80,28 +90,112 @@
       "Alleviates tonsillitis",
       "Alleviates ulcerative colitis",
       "Improves lung function",
-      "Increases body mass index (BMI)",
       "Improves menopausal symptoms",
       "Inhibits cancer cell proliferation"
     ],
     "available": true,
-    "image": "/assets/images/product-immune-booster.png"
+    "image": "/assets/images/product-immune-booster.png?v=8"
   },
   {
     "id": 5,
-    "name": "Vitamin C (Alkaline)",
+    "name": "Vitamin C (Premium Ascorbate + Zinc)",
     "category": "Food supplement",
+    "brand": "ONEWAYHI",
     "price": "Ask at clinic",
-    "description": "Sodium ascorbate + zinc — alkaline, non-acidic vitamin C. 60 capsules.",
+    "description": "ONEWAYHI premium ascorbate with zinc — 64 capsules. Gentle, non-acidic vitamin C food supplement.",
+    "packageSize": "64 capsules",
+    "dosage": "1–2 capsules daily for prevention and supplementation, or as prescribed by your physician.",
+    "ingredients": [
+      "Premium ascorbate",
+      "Zinc"
+    ],
     "benefits": [
-      "Alkaline (non-acidic) formula — gentle on the stomach",
-      "Sodium ascorbate with zinc",
-      "Immune system support",
+      "Prevention and treatment of vitamin C deficiency",
+      "Supports immunity during stress, illness, and recovery",
+      "Non-acidic premium ascorbate — gentle on the stomach",
+      "Zinc for added immune support",
       "Antioxidant protection",
       "Supports skin health and collagen",
       "Aids iron absorption"
     ],
     "available": true,
-    "image": "/assets/images/product-vitamin-c.png"
+    "image": "/assets/images/product-vitamin-c.jpg?v=8"
+  },
+  {
+    "id": 6,
+    "name": "Collagen Premium Coffee",
+    "category": "Coffee",
+    "brand": "ONEWAYHI",
+    "price": "Ask at clinic",
+    "description": "10-in-1 collagen premium coffee mix with glutathione — 10 sachets, 21 g each. Halal-certified wellness coffee.",
+    "packageSize": "10 sachets · 21 g each",
+    "certifications": ["FDA", "Halal"],
+    "ingredients": [
+      "Agaricus",
+      "Grapeseed",
+      "Gotu Kola",
+      "Mangosteen",
+      "Coffee bean",
+      "Stevia",
+      "Non-dairy creamer",
+      "Glutathione"
+    ],
+    "benefits": [
+      "10-in-1 herbal coffee blend",
+      "With glutathione",
+      "Convenient single-serve sachets",
+      "Distributed by OneWayHi Health & Wellness Traders Inc."
+    ],
+    "available": true,
+    "image": "/assets/images/product-collagen-premium-coffee.jpg?v=8"
+  },
+  {
+    "id": 7,
+    "name": "Organic Herbal Coffee (Purple Corn)",
+    "category": "Coffee",
+    "brand": "ONEWAYHI",
+    "price": "Ask at clinic",
+    "description": "14-in-1 organic herbal coffee with purple corn — 10 sachets, 21 g each. Nutrient-rich wellness coffee.",
+    "packageSize": "10 sachets · 21 g each",
+    "certifications": ["FDA", "Halal"],
+    "ingredients": [
+      "Purple corn",
+      "Agaricus mushroom",
+      "Ginseng",
+      "Beetroot",
+      "Gotu Kola",
+      "Maca root",
+      "Mangosteen",
+      "Moringa",
+      "Turmeric",
+      "Tongkat Ali",
+      "Spirulina",
+      "Horny goat weed",
+      "Stevia",
+      "Non-dairy creamer"
+    ],
+    "benefits": [
+      "14-in-1 organic herbal blend",
+      "With purple corn",
+      "Halal and FDA-registered",
+      "Manufactured for OneWayHi Health & Wellness Traders Inc."
+    ],
+    "available": true,
+    "image": "/assets/images/product-herbal-coffee-purple-corn.jpg?v=8"
+  },
+  {
+    "id": 8,
+    "name": "ASEA RSM Eye Drops",
+    "category": "Eye care",
+    "brand": "ASEA RSM",
+    "price": "Ask at clinic",
+    "description": "ASEA RSM eye drops — distributed by OneWayHi Health & Wellness Traders Inc. Available at our clinic.",
+    "benefits": [
+      "Eye care support",
+      "Available in-clinic",
+      "Distributed by OneWayHi Health & Wellness Traders Inc."
+    ],
+    "available": true,
+    "image": "/assets/images/product-asea-eye-drops.jpg?v=8"
   }
 ]

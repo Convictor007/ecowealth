@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "id": "colon-functions",
+      "title": "Functions of the colon",
+      "subtitle": "Secretory, digestive, and absorptive roles",
+      "image": "/assets/images/education-colon-functions.jpg",
+      "imageAlt": "Educational chart on colon functions for vitamins, minerals, and gut flora",
+      "summary": "A healthy colon supports digestion, absorbs water and nutrients, and maintains beneficial gut flora. When waste builds up, toxins can be reabsorbed—a concern addressed through professional colon hydrotherapy at our clinic.",
+      "topics": [
+        {
+          "heading": "What the colon does",
+          "bullets": [
+            "Secretes mucus to protect the intestinal lining",
+            "Digests remaining food with help from beneficial bacteria",
+            "Absorbs water, electrolytes, and some water-soluble nutrients",
+            "Processes about 350 g of fluid chyme daily into formed stool"
+          ]
+        },
+        {
+          "heading": "Gut flora and wellness",
+          "bullets": [
+            "Beneficial bacteria (e.g. Bifidobacterium, Lactobacillus) support vitamin production and immunity",
+            "Imbalanced flora can contribute to discomfort and poor absorption",
+            "Colon cleansing supports natural elimination when guided by a practitioner"
+          ]
+        },
+        {
+          "heading": "Why this matters for your care",
+          "bullets": [
+            "Understanding colon function helps explain the benefits of in-clinic hydrotherapy",
+            "Our team uses evidence-based, drug-free methods aligned with naturopathic practice",
+            "Book a free check-up to discuss whether colon hydrotherapy is right for you"
+          ]
+        }
+      ],
+      "credit": "Educational reference — Doctor Colonics / DOC Research Institute"
+    },
+    {
+      "id": "parasites-awareness",
+      "title": "Intestinal parasites & gut health",
+      "subtitle": "Awareness and when to seek care",
+      "image": "/assets/images/education-intestinal-parasites.jpg",
+      "imageAlt": "Educational chart on intestinal parasites and common symptoms",
+      "summary": "Parasites such as tapeworms, pinworms, and others can affect digestion and overall wellness. Symptoms vary; professional assessment and colon hydrotherapy may be part of a holistic care plan at ECOWEALTH Wellnessolution.",
+      "topics": [
+        {
+          "heading": "How exposure can occur",
+          "bullets": [
+            "Undercooked meat or contaminated food and water",
+            "Poor hygiene in high-risk environments",
+            "Tapeworms and other parasites can live in the intestines for extended periods"
+          ]
+        },
+        {
+          "heading": "When to consult us",
+          "bullets": [
+            "Persistent digestive symptoms without clear cause",
+            "Unexplained weight loss, fatigue, or appetite changes",
+            "Interest in parasite support alongside colon cleansing — discuss at your visit"
+          ]
+        }
+      ],
+      "symptoms": [
+        "Constipation",
+        "Gas or bloating",
+        "Diarrhea",
+        "Back, joint, or muscle aches",
+        "Irritable bowel–type discomfort",
+        "Allergies or skin problems",
+        "Chronic fatigue",
+        "Anemia",
+        "Sleep or vision problems"
+      ],
+      "credit": "For educational purposes — consult Edgar Bustamante, N.D. for personalized advice"
+    }
+  ]
+}

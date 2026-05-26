@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { Droplet, Eye, FlaskConical, Hand, Leaf, Pill } from 'lucide-react'
 import { getServices } from '@/api/content'
 import type { Service } from '@/api/types'
+import ColonEducationSection from '@/components/services/ColonEducationSection'
 import ColonicsSection from '@/components/services/ColonicsSection'
 import WellnessMassageSection from '@/components/services/WellnessMassageSection'
-import PractitionerIntro from '@/components/shared/PractitionerIntro'
 import PageHero from '@/components/shared/PageHero'
 import './ServicesPage.css'
 
@@ -34,10 +34,8 @@ export default function ServicesPage() {
 
       <div className="services-page">
         <div className="container">
-          <div className="services-page__practitioner">
-            <PractitionerIntro />
-          </div>
           <ColonicsSection />
+          <ColonEducationSection />
           <WellnessMassageSection />
 
           <section className="services-page__all">

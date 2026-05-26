@@ -45,6 +45,33 @@ export interface Product {
   benefits: string[]
   available: boolean
   image: string
+  brand?: string
+  packageSize?: string
+  dosage?: string
+  warnings?: string[]
+  ingredients?: string[]
+  certifications?: string[]
+}
+
+export interface ColonEducationTopic {
+  heading: string
+  bullets: string[]
+}
+
+export interface ColonEducationSection {
+  id: string
+  title: string
+  subtitle?: string
+  image: string
+  imageAlt: string
+  summary: string
+  topics?: ColonEducationTopic[]
+  symptoms?: string[]
+  credit?: string
+}
+
+export interface ColonEducationContent {
+  sections: ColonEducationSection[]
 }
 
 export interface Service {
@@ -85,6 +112,7 @@ export interface ColonicsMedia {
   after: ColonicsMediaItem
   poster?: ColonicsMediaItem
   imageCredit?: string
+  serviceName?: string
 }
 
 export interface AppointmentService {
