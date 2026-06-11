@@ -1,8 +1,9 @@
 import type { AppointmentService } from '@/api/types'
+import { isViteDevServer, resolvePhpApiBase, useMysqlApi } from '@/api/config'
 
 /**
- * Used only when /api/appointment-services.json cannot be loaded.
- * Keep in sync with public/api/appointment-services.json.
+ * Used only when appointment services API cannot be loaded.
+ * Keep in sync with public/api/appointment-services.json / database seed.
  */
 export const APPOINTMENT_SERVICES_FALLBACK: AppointmentService[] = [
   { id: 'free-checkup', label: 'Free check-up / consultation' },
@@ -16,30 +17,37 @@ export const APPOINTMENT_SERVICES_FALLBACK: AppointmentService[] = [
   { id: 'products-inquiry', label: 'Products inquiry (in-clinic)' },
 ]
 
-const VITE_DEV_PORTS = new Set(['5173', '5174', '4173'])
-
 /**
- * Booking API URL — Vercel & Vite dev use /api/appointments; XAMPP uses book.php when deployed under /ecowealth_v2
+ * Booking API URL — saves to MySQL (no email).
  */
 export function resolveAppointmentApiUrl(): string {
   const fromEnv = import.meta.env.VITE_APPOINTMENT_API_URL as string | undefined
   if (fromEnv?.trim()) return fromEnv.trim()
 
   if (typeof window !== 'undefined') {
-    const { hostname, port, pathname, origin } = window.location
-    const phpPath = '/ecowealth_v2/api/appointments/book.php'
+    const { hostname, pathname, origin } = window.location
+
+    if (useMysqlApi()) {
+      const base = resolvePhpApiBase()
+      if (pathname.includes('/ecowealth_v2')) {
+        return `${origin}/ecowealth_v2/api/appointments/book.php`
+      }
+      if (isViteDevServer()) {
+        return `${origin}/api/appointments`
+      }
+      return `${base}/appointments.php`
+    }
 
     if (hostname.includes('vercel.app')) {
       return `${origin}/api/appointments`
     }
 
-    // Vite dev / preview: same-origin handler (vite-plugin-appointments-dev)
-    if (VITE_DEV_PORTS.has(port)) {
+    if (isViteDevServer()) {
       return `${origin}/api/appointments`
     }
 
     if (pathname.includes('/ecowealth_v2')) {
-      return `${origin}${phpPath}`
+      return `${origin}/ecowealth_v2/api/appointments/book.php`
     }
 
     return `${origin}/api/appointments`

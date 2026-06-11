@@ -1,60 +1,77 @@
 # Eco Wealth Wellnessolution (v2)
 
-Clinic marketing site — Vite, React, TypeScript. Content from static JSON; booking sends email via **Resend** (recommended on Vercel) or Gmail SMTP locally (no database).
+Clinic marketing site — Vite, React, TypeScript. **MySQL** stores appointments, products, and clinic info. The React app talks to PHP/Node APIs only (no direct database access).
 
 **Live:** your Vercel URL (e.g. `https://ecowealth-five.vercel.app`)
 
-**Vercel setup:** see [VERCEL.md](./VERCEL.md) — env var names, Node 20.x, redeploy after import `.env`.
+## Quick start (XAMPP + MySQL)
 
-## Quick start
+1. Start **Apache** and **MySQL** in XAMPP.
+2. Create the database:
+
+```bash
+mysql -u root < database/schema.sql
+```
+
+3. Configure and seed:
 
 ```bash
 npm install
-cp .env.example .env   # set CLINIC_EMAIL, MAIL_SMTP_*, etc.
-npm run dev            # http://localhost:5173
+cp .env.example .env
+php database/seed.php
+npm run dev
 ```
 
-For booking locally, `npm run dev` serves **`POST /api/appointments`** via a Vite plugin (uses `.env` Resend/SMTP). XAMPP is optional; use `book.php` only when hosting under Apache (`/ecowealth_v2`).
+See [database/README.md](./database/README.md) for credentials and API URLs.
 
-## Booking (email only)
+## Booking (MySQL — no email)
 
-| Environment | Endpoint |
-|-------------|----------|
-| **Vercel** | `POST /api/appointments` |
-| **XAMPP** | `api/appointments/book.php` |
+| Environment | Endpoint | Storage |
+|-------------|----------|---------|
+| **Vite dev** | `POST /api/appointments` | MySQL via `mysql2` + `.env` `DB_*` |
+| **XAMPP** | `api/appointments/book.php` | MySQL via PHP PDO |
+| **Vercel** | `POST /api/appointments` | MySQL when `DB_*` env vars are set |
 
-**Vercel env vars (recommended — Resend):** `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `CLINIC_EMAIL`, `MAIL_FROM_NAME`. Create an API key at [resend.com](https://resend.com) and verify your sending domain (or use `onboarding@resend.dev` only for Resend account testing).
+The booking form collects **name**, **phone**, **service**, date/time, and notes — no email field.
 
-**Alternative (SMTP):** `CLINIC_EMAIL`, `MAIL_SMTP_USER`, `MAIL_SMTP_PASS` — often unreliable on Vercel; prefer Resend.
+## Content API
 
-Do not set `VITE_APPOINTMENT_API_URL` on Vercel.
+With `VITE_USE_MYSQL_API=true` (default in `.env.example`):
 
-**Optional security** (disabled unless `BOOKING_SECURITY_ENABLED=true`): `RATE_LIMIT_SALT`, `APPOINTMENT_RATE_LIMIT_PER_HOUR`.
-
-**Email template:** edit `api/templates/appointment-email.html` (used by PHP and Vercel).
-
-**Services list:** edit `public/api/appointment-services.json` (used by the form, PHP validator, and API).
+| Data | Source |
+|------|--------|
+| Products | `GET /api/v1/products.php` |
+| Clinic | `GET /api/v1/clinic.php` |
+| Appointment services | `GET /api/v1/appointment-services.php` |
+| Services, colon education, etc. | Static `public/api/*.json` (unchanged) |
 
 ## Scripts
 
 | Command | Purpose |
 |---------|---------|
-| `npm run dev` | Vite dev server |
-| `npm run dev:full` | `vercel dev` (API on port 3000) |
+| `npm run dev` | Vite dev server (proxies `/api/v1` to XAMPP when MySQL mode is on) |
+| `npm run dev:full` | `vercel dev` |
 | `npm run build` | Production build → `dist/` |
-| `npm run preview` | Preview production build |
+| `php database/seed.php` | Re-import JSON into MySQL |
+
+## Database tables
+
+| Table | PK | Notes |
+|-------|-----|--------|
+| `user` | auto-increment | Patients created on booking; optional admin row from seed |
+| `appointment` | auto-increment | Linked to `user` |
+| `products` | auto-increment | Catalog from seed |
+| `audit` | auto-increment | Logs bookings and other actions |
+
+Clinic profile and service dropdown options stay in `public/api/*.json`.
 
 ## Project layout
 
 ```
-public/api/          Static JSON content + appointment-services.json
+database/            schema.sql, seed.php
+api/v1/              PHP REST (clinic, products, appointments)
+api/appointments/    book.php (XAMPP) + index.ts (Vercel/Node)
+api/lib/             PDO, repositories, validation
+public/api/          JSON for clinic, services, seed source for products
 src/                 React app
-api/appointments/    book.php (XAMPP) + index.ts (Vercel)
-api/lib/             PHP mail + validation
-api/templates/       Branded appointment email HTML
-server/appointments/ Vercel serverless logic (validation, SMTP, email)
 ```
-
-## Optional PHP file backup
-
-Set `STORE_APPOINTMENTS=true` in `.env` to save requests under `api/storage/appointments/` when using XAMPP.

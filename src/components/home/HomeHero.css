@@ -41,12 +41,12 @@
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(5, 32, 24, 0.97) 0%,
-    rgba(5, 32, 24, 0.92) 22%,
-    rgba(5, 32, 24, 0.78) 38%,
-    rgba(5, 32, 24, 0.45) 52%,
-    rgba(5, 32, 24, 0.12) 68%,
-    transparent 82%
+    rgba(4, 22, 16, 0.98) 0%,
+    rgba(4, 22, 16, 0.96) 28%,
+    rgba(4, 22, 16, 0.88) 42%,
+    rgba(4, 22, 16, 0.65) 55%,
+    rgba(4, 22, 16, 0.3) 70%,
+    transparent 86%
   );
 }
 
@@ -57,46 +57,39 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: 56px 0;
 }
 
 .home-hero__content {
   position: relative;
   text-align: left;
-  max-width: 580px;
-  padding: 72px 40px 64px 0;
+  max-width: 600px;
+  padding: 40px 36px;
   color: #fff;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
-/* Extra scrim behind the text block */
+/* Legacy scrim — panel above replaces this */
 .home-hero__content::before {
-  content: '';
-  position: absolute;
-  left: -32px;
-  right: -16px;
-  top: -28px;
-  bottom: -28px;
-  z-index: -1;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0.12) 55%,
-    transparent 100%
-  );
-  pointer-events: none;
+  display: none;
 }
 
 .home-hero__badge {
   display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   color: #fff;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: 100px;
   margin-bottom: 20px;
 }
@@ -108,19 +101,20 @@
   line-height: 1.1;
   margin: 0 0 16px;
   letter-spacing: 0.02em;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
 }
 
 .home-hero__title-sub {
   display: block;
   margin-top: 12px;
   font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
   font-weight: 500;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.5;
+  color: #fff;
   letter-spacing: 0;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 }
 
 .home-hero__brand {
@@ -145,20 +139,21 @@
 }
 
 .home-hero__lead {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.65;
-  margin: 0 0 10px;
-  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 12px;
+  color: #fff;
   max-width: 52ch;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 
 .home-hero__services {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: #9ae6b8;
+  color: #d4f5e4;
   margin: 0 0 28px;
-  line-height: 1.5;
+  line-height: 1.55;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 
 .home-hero__actions {
@@ -260,22 +255,21 @@ a.home-hero__meta-item:hover {
     min-height: auto;
   }
 
-  .home-hero__content {
-    max-width: none;
-    padding: 56px 0 48px;
+  .home-hero__layout {
+    padding: 32px 0;
   }
 
-  .home-hero__content::before {
-    left: -16px;
-    right: -16px;
+  .home-hero__content {
+    max-width: none;
+    padding: 28px 22px;
   }
 
   .home-hero__overlay {
     background: linear-gradient(
       180deg,
-      rgba(5, 32, 24, 0.96) 0%,
-      rgba(5, 32, 24, 0.9) 45%,
-      rgba(5, 32, 24, 0.75) 100%
+      rgba(4, 22, 16, 0.97) 0%,
+      rgba(4, 22, 16, 0.92) 50%,
+      rgba(4, 22, 16, 0.82) 100%
     );
   }
 

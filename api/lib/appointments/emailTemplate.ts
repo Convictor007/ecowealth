@@ -36,7 +36,7 @@ export function loadEmailBranding(): EmailBranding {
     practitioner: process.env.EMAIL_PRACTITIONER || 'Edgar Bustamante, N.D.',
     practitionerTitle:
       process.env.EMAIL_PRACTITIONER_TITLE || 'Naturopathy Practitioner',
-    phones: listEnv('EMAIL_PHONES', ['0951 611 4125', '0991 391 6469']),
+    phones: listEnv('EMAIL_PHONES', ['0919 861 3002', '0991 391 6469']),
     hours:
       process.env.EMAIL_HOURS ||
       'Mon–Sat 9:00 AM – 6:00 PM · Sunday by appointment',

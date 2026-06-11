@@ -63,10 +63,7 @@ export default function HomePage() {
         <div className="container home-about">
           <div className="home-about__text">
             <span className="section__eyebrow">About the clinic</span>
-            <h2 className="section__title home-about__brand">
-              <span className="home-about__brand-name">{SITE_BRAND.name}</span>
-              <span className="home-about__brand-tag">{SITE_BRAND.tagline}</span>
-            </h2>
+            <h2 className="section__title">About the clinic</h2>
             <p>
               Founded by {PRACTITIONER.name}, {SITE_BRAND.full} is a naturopathic wellness clinic
               serving patients in the Bicol Region and across the Philippines. We combine colon

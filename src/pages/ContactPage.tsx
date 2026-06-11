@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
 import BookAppointmentButton from '@/components/appointment/BookAppointmentButton'
+import { CLINIC_PHONES } from '@/constants/clinic'
 import ContactPractitionerHero from '@/components/contact/ContactPractitionerHero'
 import './ContactPage.css'
 
@@ -24,10 +25,10 @@ export default function ContactPage() {
               <Phone size={28} color="var(--green)" />
               <h3>Phone</h3>
               <p>
-                <a href="tel:09516114125">0951 611 4125</a>
+                <a href={`tel:${CLINIC_PHONES.primary.replace(/\s/g, '')}`}>{CLINIC_PHONES.primary}</a>
               </p>
               <p className="contact-card__sub">
-                <a href="tel:09913916469">0991 391 6469</a>
+                <a href={`tel:${CLINIC_PHONES.secondary.replace(/\s/g, '')}`}>{CLINIC_PHONES.secondary}</a>
               </p>
               <span>Calls and text messages welcome</span>
             </article>
@@ -36,7 +37,7 @@ export default function ContactPage() {
               <h3>Appointments</h3>
               <p>Send a request through our online booking form.</p>
               <BookAppointmentButton />
-              <span>We aim to respond within 24 hours by phone or email</span>
+              <span>We aim to respond within 24 hours by phone</span>
             </article>
             <Link to="/location" className="card contact-card contact-card--link">
               <MapPin size={28} color="var(--green)" />

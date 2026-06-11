@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
     if (process.env[key] === undefined) process.env[key] = value
   }
 
+  const xamppOrigin = env.VITE_XAMPP_ORIGIN || 'http://localhost'
+  const useMysqlProxy = env.VITE_USE_MYSQL_API === 'true'
+
   return {
     plugins: [react(), appointmentsDevApi()],
     resolve: {
@@ -18,16 +21,35 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      // Optional: still proxy to XAMPP if VITE_APPOINTMENT_API_URL points at PHP
-      proxy: env.VITE_APPOINTMENT_PROXY_TARGET
+      proxy: useMysqlProxy
         ? {
-            '/api/appointments': {
-              target: env.VITE_APPOINTMENT_PROXY_TARGET,
+            '/api/v1': {
+              target: xamppOrigin,
               changeOrigin: true,
-              rewrite: () => '/ecowealth_v2/api/appointments/book.php',
+              rewrite: (p) => {
+                const name = p.replace(/^\/api\/v1\/?/, '') || 'index'
+                return `/ecowealth_v2/api/v1/${name}.php`
+              },
             },
+            ...(env.VITE_APPOINTMENT_PROXY_TARGET
+              ? {
+                  '/api/appointments': {
+                    target: env.VITE_APPOINTMENT_PROXY_TARGET,
+                    changeOrigin: true,
+                    rewrite: () => '/ecowealth_v2/api/appointments/book.php',
+                  },
+                }
+              : {}),
           }
-        : undefined,
+        : env.VITE_APPOINTMENT_PROXY_TARGET
+          ? {
+              '/api/appointments': {
+                target: env.VITE_APPOINTMENT_PROXY_TARGET,
+                changeOrigin: true,
+                rewrite: () => '/ecowealth_v2/api/appointments/book.php',
+              },
+            }
+          : undefined,
     },
   }
 })

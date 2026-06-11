@@ -10,7 +10,6 @@ export const appointmentSchema = z
       .string()
       .trim()
       .regex(/^[\d\s+\-()]{7,20}$/, 'Please enter a valid phone number.'),
-    email: z.string().trim().email('Please enter a valid email address.').max(254),
     service: serviceEnum,
     preferredDate: z
       .string()
@@ -30,7 +29,6 @@ export const appointmentSchema = z
   .transform((data) => ({
     fullName: data.fullName,
     phone: data.phone,
-    email: data.email,
     service: data.service,
     preferredDate: data.preferredDate || undefined,
     preferredTime: data.preferredTime || undefined,

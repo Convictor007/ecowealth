@@ -1,4 +1,5 @@
 import { apiGet, apiPost, ApiError } from './client'
+import { resolvePhpApiBase, useMysqlApi } from './config'
 import type {
   AppointmentRequest,
   AppointmentResponse,
@@ -8,6 +9,9 @@ import type {
 const JSON_API = '/api'
 
 export function getAppointmentServices() {
+  if (useMysqlApi()) {
+    return apiGet<AppointmentServicesResponse>(`${resolvePhpApiBase()}/appointment-services.php`)
+  }
   return apiGet<AppointmentServicesResponse>(`${JSON_API}/appointment-services.json`)
 }
 

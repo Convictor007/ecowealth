@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { isDatabaseConfigured, listAppointmentServices } from '../lib/appointments/db.js'
 import { APPOINTMENT_SERVICES } from '../lib/appointments/services.js'
 
 export const config = {
@@ -10,21 +11,6 @@ function applyApiHeaders(res: VercelResponse) {
   res.setHeader('Cache-Control', 'no-store')
 }
 
-function emailStatus(): { provider: string; emailConfigured: boolean } {
-  const clinic = process.env.CLINIC_EMAIL?.trim()
-  const resendKey = process.env.RESEND_API_KEY?.trim()
-  const resendFrom = process.env.RESEND_FROM_EMAIL?.trim()
-  if (clinic && resendKey && resendFrom) {
-    return { provider: 'resend', emailConfigured: true }
-  }
-  const smtpUser = process.env.MAIL_SMTP_USER?.trim()
-  const smtpPass = process.env.MAIL_SMTP_PASS?.replace(/\s+/g, '')
-  if (clinic && smtpUser && smtpPass) {
-    return { provider: 'smtp', emailConfigured: true }
-  }
-  return { provider: 'none', emailConfigured: false }
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     applyApiHeaders(res)
@@ -34,15 +20,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     if (req.method === 'GET') {
-      const { provider, emailConfigured } = emailStatus()
       const securityEnabled = process.env.BOOKING_SECURITY_ENABLED === 'true'
+      const dbConfigured = isDatabaseConfigured()
+      const services = dbConfigured ? listAppointmentServices() : [...APPOINTMENT_SERVICES]
       return res.status(200).json({
         success: true,
         message: 'Appointments API is running. Send POST JSON to book.',
-        provider,
-        emailConfigured,
+        storage: dbConfigured ? 'database' : 'unconfigured',
+        databaseConfigured: dbConfigured,
         securityEnabled,
-        services: APPOINTMENT_SERVICES,
+        services,
       })
     }
 
@@ -60,7 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
     return res.status(500).json({
       success: false,
-      message: 'Booking API error. Check Vercel function logs.',
+      message: 'Booking API error. Check server logs.',
       detail: errMsg,
     })
   }

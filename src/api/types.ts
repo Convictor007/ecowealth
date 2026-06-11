@@ -127,7 +127,6 @@ export interface AppointmentServicesResponse {
 export interface AppointmentRequest {
   fullName: string
   phone: string
-  email: string
   service: string
   preferredDate?: string
   preferredTime?: string
@@ -138,8 +137,8 @@ export interface AppointmentRequest {
 export interface AppointmentResponse {
   success: boolean
   message: string
-  emailSent?: boolean
   referenceId?: string
+  savedToDatabase?: boolean
   errors?: Record<string, string>
 }
 

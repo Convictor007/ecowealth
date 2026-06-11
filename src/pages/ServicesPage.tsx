@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Droplet, Eye, FlaskConical, Hand, Leaf, Pill } from 'lucide-react'
 import { getServices } from '@/api/content'
 import type { Service } from '@/api/types'
+import { SITE_BRAND } from '@/constants/clinic'
 import ColonEducationSection from '@/components/services/ColonEducationSection'
 import ColonicsSection from '@/components/services/ColonicsSection'
 import WellnessMassageSection from '@/components/services/WellnessMassageSection'
@@ -29,7 +30,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Treatments"
         title="Clinic services"
-        description="Naturopathic care at ECOWEALTH Wellnessolution — colon hydrotherapy, therapeutic massage, iridology, herbology, and more. By appointment."
+        description={`Naturopathic care at ${SITE_BRAND.full} — colon hydrotherapy, therapeutic massage, iridology, herbology, and more. By appointment.`}
       />
 
       <div className="services-page">

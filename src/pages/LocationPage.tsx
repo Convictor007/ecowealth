@@ -54,10 +54,6 @@ export default function LocationPage() {
                   <MapPin size={28} />
                 </div>
                 <h2 className="location-card__title">Clinic address</h2>
-                <p className="location-card__brand">
-                  <span className="location-card__brand-name">{SITE_BRAND.name}</span>
-                  <span className="location-card__brand-tag">{SITE_BRAND.tagline}</span>
-                </p>
                 {clinic ? (
                   <>
                     <p className="location-card__address">{clinic.address.primary}</p>

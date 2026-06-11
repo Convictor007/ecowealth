@@ -87,7 +87,7 @@ final class AppointmentEmailTemplate
             'tagline' => (string) ($brand['tagline'] ?? 'Natural Healing · Holistic Wellness · Trusted Care'),
             'practitioner' => (string) ($brand['practitioner'] ?? 'Edgar Bustamante, N.D.'),
             'practitioner_title' => (string) ($brand['practitioner_title'] ?? 'Naturopathy Practitioner'),
-            'phones' => is_array($brand['phones'] ?? null) ? $brand['phones'] : ['0951 611 4125', '0991 391 6469'],
+            'phones' => is_array($brand['phones'] ?? null) ? $brand['phones'] : ['0919 861 3002', '0991 391 6469'],
             'hours' => (string) ($brand['hours'] ?? 'Mon–Sat 9:00 AM – 6:00 PM · Sunday by appointment'),
             'location' => (string) ($brand['location'] ?? 'ONEWAYHI Health and Wellness, Bicol Region, Philippines'),
         ];

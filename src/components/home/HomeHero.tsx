@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Phone } from 'lucide-react'
 import BookAppointmentButton from '@/components/appointment/BookAppointmentButton'
-import { BOOKING_CTA, SITE_BRAND } from '@/constants/clinic'
+import { BOOKING_CTA } from '@/constants/clinic'
 import { PRACTITIONER } from '@/constants/practitioner'
 import './HomeHero.css'
 
@@ -35,7 +35,7 @@ export default function HomeHero() {
   }, [])
 
   return (
-    <section className="home-hero" aria-label="Welcome to ECOWEALTH Wellnessolution">
+    <section className="home-hero" aria-label="Welcome to ECO-WEALTH">
       <div
         className="home-hero__bg"
         aria-hidden
@@ -75,11 +75,6 @@ export default function HomeHero() {
             Health awareness through iridology — open to all residents
           </span>
         </h1>
-
-        <p className="home-hero__brand">
-          <span className="home-hero__brand-name">{SITE_BRAND.name}</span>
-          <span className="home-hero__brand-tag">{SITE_BRAND.tagline}</span>
-        </p>
 
         <p className="home-hero__lead">
           Your trusted partner in holistic wellness and natural healing — personally guided by{' '}

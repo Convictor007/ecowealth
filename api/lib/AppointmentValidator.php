@@ -10,10 +10,8 @@ final class AppointmentValidator
     public static function validate(array $input): array
     {
         $errors = [];
-        $allowed = AppointmentServices::allowedIds();
         $fullName = trim((string) ($input['fullName'] ?? ''));
         $phone = trim((string) ($input['phone'] ?? ''));
-        $email = trim((string) ($input['email'] ?? ''));
         $service = trim((string) ($input['service'] ?? ''));
         $preferredDate = trim((string) ($input['preferredDate'] ?? ''));
         $preferredTime = trim((string) ($input['preferredTime'] ?? ''));
@@ -25,10 +23,7 @@ final class AppointmentValidator
         if ($phone === '' || !preg_match('/^[\d\s+\-()]{7,20}$/', $phone)) {
             $errors['phone'] = 'Please enter a valid phone number.';
         }
-        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Please enter a valid email address.';
-        }
-        if ($service === '' || !in_array($service, $allowed, true)) {
+        if ($service === '') {
             $errors['service'] = 'Please select a service.';
         }
         if ($preferredDate !== '' && !self::isValidDate($preferredDate)) {
@@ -45,7 +40,6 @@ final class AppointmentValidator
             'data' => [
                 'fullName' => $fullName,
                 'phone' => $phone,
-                'email' => $email,
                 'service' => $service,
                 'preferredDate' => $preferredDate,
                 'preferredTime' => $preferredTime,

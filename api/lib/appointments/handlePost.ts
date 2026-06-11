@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { parseAppointmentBody } from './validate.js'
 import {
@@ -10,18 +9,18 @@ import {
 } from './security.js'
 import { parseJsonBody } from './body.js'
 import { checkRateLimit, recordRateLimit } from './rateLimit.js'
-import { isEmailConfigured, sendAppointmentEmail } from './mailProvider.js'
+import { createAppointment, isDatabaseConfigured, serviceExists } from './db.js'
 
 export async function handlePost(req: VercelRequest, res: VercelResponse) {
   if (!hasValidBookingHeader(req)) {
     return res.status(403).json({ success: false, message: 'Invalid request.' })
   }
 
-  if (!isEmailConfigured()) {
+  if (!isDatabaseConfigured()) {
     return res.status(503).json({
       success: false,
       message:
-        'Email not configured. Set RESEND_API_KEY + RESEND_FROM_EMAIL + CLINIC_EMAIL on Vercel (Production).',
+        'Database not configured. Set DB_HOST, DB_NAME, DB_USER, and DB_PASS in .env (run database/schema.sql).',
     })
   }
 
@@ -63,32 +62,45 @@ export async function handlePost(req: VercelRequest, res: VercelResponse) {
           message: 'Too many booking attempts. Please try again later or call the clinic.',
         })
       }
-      await sendAppointmentEmail(data)
+    }
+
+    const exists = serviceExists(data.service)
+    if (!exists) {
+      return res.status(422).json({
+        success: false,
+        message: 'Please correct the errors below.',
+        errors: { service: 'Please select a service.' },
+      })
+    }
+
+    const referenceId = await createAppointment({
+      fullName: data.fullName,
+      phone: data.phone,
+      service: data.service,
+      preferredDate: data.preferredDate,
+      preferredTime: data.preferredTime,
+      notes: data.notes,
+    })
+
+    if (isBookingSecurityEnabled()) {
+      const ipHash = hashIp(getClientIp(req))
       recordRateLimit(ipHash)
-    } else {
-      await sendAppointmentEmail(data)
     }
+
+    return res.status(200).json({
+      success: true,
+      message:
+        'Thank you! Your appointment request was saved. We will contact you by phone soon.',
+      savedToDatabase: true,
+      referenceId,
+    })
   } catch (err) {
-    console.error('Appointment send error:', err)
+    console.error('Appointment save error:', err)
     const errMsg = err instanceof Error ? err.message : 'Unknown error'
-    let msg = 'Unable to send your request. Please call the clinic.'
-    if (/not configured/i.test(errMsg)) {
-      msg = 'Booking email is not configured on the server.'
-    } else if (/authentication failed|Resend/i.test(errMsg)) {
-      msg = 'Email service misconfigured. Check Resend domain and API key.'
-    }
     return res.status(503).json({
       success: false,
-      message: msg,
+      message: 'Unable to save your request. Please call the clinic.',
       ...(process.env.VERCEL_ENV !== 'production' && { detail: errMsg }),
     })
   }
-
-  return res.status(200).json({
-    success: true,
-    message:
-      'Thank you! Your appointment request was received. We will contact you soon.',
-    emailSent: true,
-    referenceId: randomUUID().slice(0, 8),
-  })
 }

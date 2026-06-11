@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Phone } from 'lucide-react'
+import { CLINIC_PHONES } from '@/constants/clinic'
 import './ClinicCta.css'
 
 interface ClinicCtaProps {
@@ -21,9 +22,9 @@ export default function ClinicCta({
           <p>{text}</p>
         </div>
         <div className="clinic-cta__actions">
-          <a href="tel:09516114125" className="btn btn--primary">
+          <a href={`tel:${CLINIC_PHONES.primary.replace(/\s/g, '')}`} className="btn btn--primary">
             <Phone size={18} />
-            0951 611 4125
+            {CLINIC_PHONES.primary}
           </a>
           <Link to="/contact" className="btn btn--outline">
             Contact clinic

@@ -8,7 +8,7 @@ const DEFAULT: WellnessMassageContent = {
   title: 'Therapeutic Massage & Holistic Wellness',
   subtitle: 'Relaxation, recovery, and natural balance',
   description:
-    'Complement your naturopathic care with in-clinic therapeutic massage and holistic wellness sessions at ECOWEALTH Wellnessolution.',
+    'Complement your naturopathic care with in-clinic therapeutic massage and holistic wellness sessions at ECO-WEALTH.',
   image: {
     src: '/assets/images/massages.png',
     alt: 'Therapeutic back massage in-clinic at ECOWEALTH',

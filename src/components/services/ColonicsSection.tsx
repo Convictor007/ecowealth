@@ -9,7 +9,7 @@ const DEFAULT_MEDIA: ColonicsMedia = {
   serviceName: 'Modern Labatiba colon hydrotherapy',
   machine: {
     src: '/assets/images/colonics-labatiba-machine.jpg',
-    alt: 'Modern Labatiba colon cleansing machine at ECOWEALTH Wellnessolution',
+    alt: 'Modern Labatiba colon cleansing machine at ECO-WEALTH',
     caption: 'Modern colon cleansing machine — the Seven Rs of colon hydrotherapy',
   },
   poster: {

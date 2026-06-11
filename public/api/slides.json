@@ -2,12 +2,12 @@
   {
     "id": 1,
     "title": "ECOWEALTH",
-    "subtitle": "Wellnessolution",
+    "subtitle": "Medical Equipment Manufacturing",
     "description": "Your trusted partner in holistic wellness and natural healing solutions.",
     "services": "Colon hydrotherapy · Therapeutic massage · Iridology · Herbal products",
     "location": "Bicol Region, Philippines",
     "gps": "13.4427° N, 123.4043° E",
-    "phone": "0951 611 4125",
+    "phone": "0919 861 3002",
     "badge": "Naturopathic clinic",
     "image": "/assets/images/massages.png"
   },
@@ -19,7 +19,7 @@
     "services": "Natural approach · In-clinic treatment · By appointment",
     "location": "Bicol Region clinic",
     "gps": "13.4427° N, 123.4043° E",
-    "phone": "0951 611 4125",
+    "phone": "0919 861 3002",
     "badge": "Signature service",
     "image": "/assets/images/colonics-labatiba-machine.jpg"
   },
@@ -31,7 +31,7 @@
     "services": "Iridology assessment · Wellness guidance",
     "location": "Call to book your visit",
     "gps": "Bicol Region, Philippines",
-    "phone": "0951 611 4125",
+    "phone": "0919 861 3002",
     "badge": "Community offer",
     "image": "/assets/images/hero-clinic.jpg"
   }

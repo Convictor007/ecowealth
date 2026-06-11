@@ -87,7 +87,7 @@ Body example:
 ```json
 {
   "fullName": "Test User",
-  "phone": "09516114125",
+  "phone": "09198613002",
   "email": "patient@example.com",
   "service": "free-checkup",
   "preferredDate": "2026-06-15",

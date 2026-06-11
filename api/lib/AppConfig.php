@@ -18,7 +18,7 @@ final class AppConfig
 
         $phones = Env::list('EMAIL_PHONES');
         if ($phones === []) {
-            $phones = ['0951 611 4125', '0991 391 6469'];
+            $phones = ['0919 861 3002', '0991 391 6469'];
         }
 
         return [

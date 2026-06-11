@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
-import { SITE_BRAND } from '@/constants/clinic'
-import ClinicLogo from '@/components/shared/ClinicLogo'
+import { CLINIC_PHONES, SITE_BRAND } from '@/constants/clinic'
 import './Footer.css'
 
 const FOOTER_SERVICES = [
@@ -24,13 +23,6 @@ const FOOTER_CLINIC = [
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="container site-footer__brand">
-        <ClinicLogo size="sm" />
-        <div className="site-footer__brand-text">
-          <span className="site-footer__brand-name">{SITE_BRAND.name}</span>
-          <span className="site-footer__brand-tag">{SITE_BRAND.tagline}</span>
-        </div>
-      </div>
       <div className="container site-footer__columns">
         <div className="site-footer__col">
           <h3>Get in touch</h3>
@@ -39,8 +31,8 @@ export default function Footer() {
               <Phone size={18} aria-hidden />
               <div>
                 <span>Call us</span>
-                <a href="tel:09516114125">0951 611 4125</a>
-                <a href="tel:09913916469">0991 391 6469</a>
+                <a href={`tel:${CLINIC_PHONES.primary.replace(/\s/g, '')}`}>{CLINIC_PHONES.primary}</a>
+                <a href={`tel:${CLINIC_PHONES.secondary.replace(/\s/g, '')}`}>{CLINIC_PHONES.secondary}</a>
               </div>
             </li>
             <li>

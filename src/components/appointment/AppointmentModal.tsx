@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import { Loader2, Mail, Phone, User, X } from 'lucide-react'
+import { Loader2, Phone, User, X } from 'lucide-react'
 import {
   getAppointmentErrors,
   getAppointmentServices,
@@ -19,7 +19,6 @@ import './AppointmentModal.css'
 const EMPTY_FORM = {
   fullName: '',
   phone: '',
-  email: '',
   service: 'free-checkup',
   preferredDate: '',
   preferredTime: '',
@@ -83,7 +82,6 @@ export default function AppointmentModal() {
         {
           fullName: form.fullName.trim(),
           phone: form.phone.trim(),
-          email: form.email.trim(),
           service: form.service,
           preferredDate: form.preferredDate || undefined,
           preferredTime: form.preferredTime || undefined,
@@ -126,7 +124,7 @@ export default function AppointmentModal() {
             <div className="appointment-modal__sending-card">
               <Loader2 size={40} className="appointment-modal__spin" aria-hidden />
               <p className="appointment-modal__sending-title">Sending your request</p>
-              <p className="appointment-modal__sending-hint">Connecting to the clinic…</p>
+              <p className="appointment-modal__sending-hint">Saving your request…</p>
               <div className="appointment-modal__sending-bar" aria-hidden>
                 <span className="appointment-modal__sending-bar-fill" />
               </div>
@@ -137,7 +135,7 @@ export default function AppointmentModal() {
         <header className="appointment-modal__header">
           <div>
             <h2 id="appointment-modal-title">{BOOKING_CTA.label}</h2>
-            <p>Request an appointment by email. We will confirm by phone or email.</p>
+            <p>Submit your request online. We will confirm by phone.</p>
           </div>
           <button
             type="button"
@@ -210,7 +208,7 @@ export default function AppointmentModal() {
                   value={form.phone}
                   onChange={(e) => update('phone', e.target.value)}
                   autoComplete="tel"
-                  placeholder="0951 611 4125"
+                  placeholder={BOOKING_CTA.phone}
                   required
                   disabled={formBusy}
                 />
@@ -219,25 +217,6 @@ export default function AppointmentModal() {
                 )}
               </label>
             </div>
-
-            <label className="appointment-modal__field">
-              <span>
-                <Mail size={16} aria-hidden />
-                Email *
-              </span>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={(e) => update('email', e.target.value)}
-                autoComplete="email"
-                required
-                disabled={formBusy}
-              />
-              {fieldErrors.email && (
-                <span className="appointment-modal__field-error">{fieldErrors.email}</span>
-              )}
-            </label>
 
             <label className="appointment-modal__field">
               <span>Service *</span>
